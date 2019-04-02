@@ -1,7 +1,7 @@
 # LeetCode
 
 ## 2018
->> C++
+> C++
 
 ## 2019
->> Java
+> Java
