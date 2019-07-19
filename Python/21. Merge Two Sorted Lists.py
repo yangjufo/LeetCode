@@ -4,13 +4,14 @@ class ListNode:
         self.val = x
         self.next = None
 
+
 class Solution:
     def mergeTwoLists(self, l1: ListNode, l2: ListNode) -> ListNode:
         dummy_head = ListNode(0)
         prev = dummy_head
         while l1 != None or l2 != None:
             if l1 != None and l2 != None:
-                if l1.val < l2.val:                    
+                if l1.val < l2.val:
                     l3 = ListNode(l1.val)
                     l1 = l1.next
                 else:

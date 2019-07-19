@@ -10,7 +10,7 @@ class Solution:
         for a2 in arr2:
             res += [a2] * arr1Map[a2]
             del(arr1Map[a2])
-        left = sorted(arr1Map)                  
+        left = sorted(arr1Map)
         for a2 in left:
             res += [a2] * arr1Map[a2]
         return res

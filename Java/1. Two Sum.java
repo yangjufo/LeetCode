@@ -5,7 +5,7 @@ class Solution {
         for (int i = 0; i < nums.length; i++) {
             if (numIndex.containsKey(target - nums[i])) {
                 res[0] = numIndex.get(target - nums[i]);
-                res[1] = i;
+                res[1] = i ;
                 break;
             }
             numIndex.put(nums[i], i);        
