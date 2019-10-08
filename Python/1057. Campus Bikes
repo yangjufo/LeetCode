@@ -1,0 +1,17 @@
+class Solution:
+    def assignBikes(self, workers: List[List[int]], bikes: List[List[int]]) -> List[int]:
+        dis = dict()
+        for (i, worker) in enumerate(workers):
+            for (j, bike) in enumerate(bikes):
+                d = abs(worker[0] - bike[0]) + abs(worker[1] - bike[1])
+                if d not in dis:
+                    dis[d] = list()
+                dis[d].append((i, j))
+        ans = [-1] * len(workers)        
+        taken = set()
+        for d in sorted(dis):
+            for pair in dis[d]:
+                if ans[pair[0]] == -1 and pair[1] not in taken:
+                    ans[pair[0]] = pair[1]
+                    taken.add(pair[1])
+        return ans
