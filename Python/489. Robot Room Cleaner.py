@@ -57,7 +57,7 @@ class Solution(object):
                     backtrack(new_cell, new_d)
                     go_back()
                 # turn the robot following chosen direction : clockwise
-                robot.turnRight()
+                robot.turnRight()  
 
         # going clockwise : 0: 'up', 1: 'right', 2: 'down', 3: 'left'
         directions = [(-1, 0), (0, 1), (1, 0), (0, -1)]
