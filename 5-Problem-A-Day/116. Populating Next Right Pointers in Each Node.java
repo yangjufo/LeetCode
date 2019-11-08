@@ -11,28 +11,16 @@ class Solution {
     public Node connect(Node root) {
         if (root == null)
             return null;
-        Queue<Node> nodes = new LinkedList<>();
-        Queue<Integer> levels = new LinkedList<>();
-        nodes.add(root);
-        levels.add(1);
-        Node prev = null;
-        int last = 0;
-        while (nodes.size() > 0) {
-            Node node = nodes.remove();
-            int level = levels.remove();
-            if (level != last)
-                last = level;
-            else
-                prev.next = node;
-            prev = node;
-            if (node.left != null) {
-                nodes.add(node.left);
-                levels.add(level + 1);
+        Node pre = root, cur = null;
+        while (pre.left != null) {
+            cur = pre;
+            while (cur != null) {
+                cur.left.next = cur.right;
+                if (cur.next != null)
+                    cur.right.next = cur.next.left;
+                cur = cur.next;
             }
-            if (node.right != null) {
-                nodes.add(node.right);
-                levels.add(level + 1);
-            }
+            pre = pre.left;
         }
         return root;
     }
