@@ -12,9 +12,5 @@ https://www.geeksforgeeks.org/
 **Java**
 
 
-**Python**
-
-**C++**
-
 
 
