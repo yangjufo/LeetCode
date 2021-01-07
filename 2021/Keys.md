@@ -1,0 +1,3 @@
+1. Sorted array -> binary search
+2. String with limited characters -> hashMaps, e.g., one day has up to 1440 minutes
+3. Word ladder -> bfs is faster than dfs, because it can cut off earlier
