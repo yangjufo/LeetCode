@@ -18,3 +18,32 @@ public:
         
     }
 };
+
+class Solution {
+public:
+    int mctFromLeafValues(vector<int>& arr) {
+        int res = 0;
+        stack<int> stack;
+        stack.push(INT_MAX);
+        for (int a : arr) {
+            while (stack.top() <= a) {
+                int mid = stack.top();
+                stack.pop();
+                res += mid * min(stack.top(), a);
+            }
+            stack.push(a);
+        }
+        if (stack.size() > 2) {
+            int num1 = stack.top();
+            stack.pop();
+            int num2;
+            while (stack.size() > 1) {
+                num2 = stack.top();
+                stack.pop();
+                res += num1 * num2;
+                num1 = num2;
+            }
+        }
+        return res;
+    }
+};
