@@ -3,3 +3,4 @@
 3. Word ladder -> bfs is faster than dfs, because it can cut off earlier
 4. Binary search -> use Segment tree or binary index tree
 5. find prefix + suffix -> find mid instead, like max subarray
+6. Do not use array.size() - k < target => unsigned int vs singed int; (int)nums.size() - 2 to avoid overflow
