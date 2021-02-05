@@ -44,3 +44,22 @@ public:
         return ans;
     }
 };
+
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if (numRows == 1) return s;
+        int colDiff = (numRows - 1) * 2;
+        string res;        
+        for (int i = 0; i < numRows; i++) {
+            for (int j = 0; j + i < s.length(); j += colDiff) {
+                res += s[j + i];
+                if (i != 0 && i != numRows - 1 && j + colDiff - i < s.length()) {
+                    res += s[j + colDiff - i];
+                }
+            }
+        }
+        
+        return res;
+    }
+};

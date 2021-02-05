@@ -26,3 +26,27 @@ public:
         return right - left - 1;
     }
 };
+
+class Solution {
+public:
+    string longestPalindrome(string s) {        
+        int n = s.length();
+        vector<vector<bool>> dp(n, vector<bool>(n, false));
+        
+        int maxLen = 0, maxStart = 0;
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i; j < n; j++) {
+                if (s[i] == s[j]) {
+                    dp[i][j] = (i + 1 <= j - 1) ? dp[i+1][j-1] : true;
+                    if (dp[i][j] && j - i + 1 > maxLen) {
+                        maxStart = i;
+                        maxLen = j - i + 1;
+                    }
+                } else {
+                    dp[i][j] = false;
+                }
+            }
+        }                    
+        return s.substr(maxStart, maxLen);
+    }        
+};

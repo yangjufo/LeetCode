@@ -22,3 +22,27 @@ public:
         
     }
 };
+
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        backtrack("", n, 0, 0, res);
+        return res;
+    }
+    
+    void backtrack(string curr, int n, int left, int right, vector<string>& res) {
+        if (left == n && right == n) {
+            res.push_back(curr);
+            return;
+        }
+        
+        if (right < left) {            
+            backtrack(curr + ")", n, left, right + 1, res);
+            
+        }
+        if (left < n) {
+            backtrack(curr + "(", n, left + 1, right, res);
+        }
+    }
+};
