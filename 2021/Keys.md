@@ -5,3 +5,4 @@
 5. find prefix + suffix -> find mid instead, like max subarray
 6. Do not use array.size() - k < target => unsigned int vs singed int; (int)nums.size() - 2 to avoid overflow
 7. Reverse thinking -> rule out those do not fit if you need to find all that fit -> 130. Surrounded Regions
+8. Whether a graph is a tree -> number of edges = number of nodes - 1

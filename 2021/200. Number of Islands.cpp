@@ -29,3 +29,65 @@ public:
         }
     }
 };
+
+class Solution {
+public: 
+    
+    int count;
+    vector<int> parents, ranks;
+    
+    int numIslands(vector<vector<char>>& grid) {
+        int m = grid.size(), n = (m == 0) ? 0 : grid[0].size();
+        parents.resize(m * n, -1);
+        ranks.resize(m * n, 0);
+        count = 0;
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    parents[i * n + j] = i * n + j;
+                    count++;
+                }                                
+            }
+        }
+        
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] == '1') {
+                    grid[i][j] = '0';
+                    if (i - 1 >= 0 && grid[i - 1][j] == '1') {
+                        merge(i * n + j, (i -1) * n + j);
+                    }
+                    if (i + 1 < m && grid[i + 1][j] == '1') {
+                        merge(i * n + j, (i + 1) * n + j);
+                    }
+                    if (j - 1 >= 0 && grid[i][j - 1] == '1') {
+                        merge(i * n + j, i * n + j - 1);
+                    }
+                    if (j + 1 < n && grid[i][j + 1] == '1') {
+                        merge(i * n + j, i * n + j + 1);
+                    }
+                }
+            }
+        }
+        return count;    
+    }
+    
+    int find (int node) {
+        return (parents[node] == node) ? node : find(parents[node]);
+    }
+    
+    void merge (int left, int right) {
+        int pLeft = find(left), pRight = find(right);
+        if (pLeft != pRight) {
+            if (ranks[pLeft] < ranks[pRight]) {                
+                parents[pLeft] = pRight;
+            } else {
+                if (ranks[pLeft] == ranks[pRight]) {
+                    ranks[pLeft]++;
+                }                
+                parents[pRight] = pLeft;
+            }
+            count--;
+        }
+    }
+};

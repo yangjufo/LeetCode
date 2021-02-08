@@ -88,3 +88,53 @@ public:
         return cloneHead;
     }
 };
+
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (head == NULL) return NULL;
+        
+        Node* node = head;
+        while (node != NULL) {
+            Node* clone = new Node(node->val);
+            clone->next = node->next;
+            node->next = clone;
+            node = clone->next;
+        }
+                     
+        node = head;
+        Node* cloneHead = node->next, *clone = cloneHead;
+        while (node != NULL) {            
+            clone->random = node->random == NULL ? NULL : node->random->next;            
+            node = node->next == NULL ? NULL : node->next->next;            
+            clone = clone->next == NULL ? NULL : clone->next->next;
+        }
+        
+        node = head;
+        clone = cloneHead;
+        while (node != NULL) {
+            node->next = clone->next;
+            node = node->next;
+            clone->next = node == NULL ? NULL : node->next;
+            clone = clone->next;
+        }
+        
+        return cloneHead;
+    }
+};
