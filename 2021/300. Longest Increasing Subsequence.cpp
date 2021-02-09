@@ -27,3 +27,32 @@ public:
         return right;
     }
 };
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {           
+        vector<int> dp;        
+        for (int n : nums) {
+            int index = binarySearch(dp, n);
+            if (index == dp.size()) {                
+                dp.push_back(n);
+            } else {
+                dp[index] = n;
+            }            
+        }
+        return dp.size();
+    }
+    
+    int binarySearch(vector<int>& dp, int target) {        
+        int left = 0, right = dp.size() - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (dp[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        return (dp.empty()) ? 0 : (target > dp[left]) ? left + 1 : left;
+    }
+};
