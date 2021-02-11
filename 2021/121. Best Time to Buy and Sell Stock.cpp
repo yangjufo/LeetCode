@@ -12,3 +12,15 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int maxProfit = 0, lowestBuy = INT_MAX;
+        for (int p : prices) {
+            maxProfit = max(maxProfit, p - lowestBuy);
+            lowestBuy = min(lowestBuy, p);
+        }
+        return maxProfit;
+    }
+};
