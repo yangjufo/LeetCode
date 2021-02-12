@@ -23,3 +23,25 @@ public:
         return true;
     }
 };
+
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if (s.length() != t.length()) return false;
+        int sCount[26], tCount[26];
+        fill(sCount, sCount + 26, 0);
+        fill(tCount, tCount + 26, 0);
+        
+        for (int i = 0; i < s.length(); i++) {
+            sCount[s[i] - 'a']++;
+            tCount[t[i] - 'a']++;
+        }
+        
+        for (int i = 0; i < 26; i++) {
+            if (sCount[i] != tCount[i]) return false;
+        }
+        
+        return true;
+    }
+};
