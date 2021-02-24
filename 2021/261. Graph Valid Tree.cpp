@@ -23,3 +23,48 @@ public:
         }                
     }
 };
+
+class Solution {
+public:
+    vector<int> parents;
+    vector<int> ranks;
+    int total;
+    bool validTree(int n, vector<vector<int>>& edges) { 
+        if (edges.size() != n - 1) return false;        
+        total = n;
+        for (int i = 0; i < n; i++) {
+            parents.push_back(i);
+            ranks.push_back(1);
+        }
+        
+        for (vector<int>& edge : edges) {
+            merge(edge[0], edge[1]);
+        }
+        
+        return total <= 1;
+    }
+    
+    int find(int node) {
+        if (parents[node] != node) {
+            parents[node] = find(parents[node]);
+        }
+        return parents[node];
+    }
+    
+    void merge(int x, int y) {
+        int pX = find(x), pY = find(y);
+        if (pX != pY) {
+            total--;
+            if (ranks[pX] > ranks[pY]) {
+                parents[pY] = pX;
+            } else {
+                parents[pX] = pY;
+                if (ranks[pX] == ranks[pY]) {
+                    ranks[pY]++;
+                }
+            }            
+        }
+    }
+    
+    
+};
