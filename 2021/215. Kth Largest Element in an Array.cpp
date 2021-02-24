@@ -58,3 +58,79 @@ public:
         nums[b] = tmp;
     }
 };
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        srand(time(0));
+        return quickSelect(nums, 0, nums.size() - 1, nums.size() - k);
+    }
+    
+    int quickSelect(vector<int>& nums, int left, int right, int kSmallest) {
+        if (left >= right) return nums[left];
+        
+        int pivotIndex = rand() % (right - left) + left;
+        
+        pivotIndex = partition(nums, left, right, pivotIndex);
+        
+        if (pivotIndex == kSmallest) {
+            return nums[pivotIndex];
+        }
+        
+        if (pivotIndex > kSmallest) {
+            return quickSelect(nums, left, pivotIndex - 1, kSmallest);
+        }
+        return quickSelect(nums, pivotIndex + 1, right, kSmallest);
+        
+    }
+    
+    int partition(vector<int>& nums, int left, int right, int pivotIndex) {
+        swap(nums[right], nums[pivotIndex]);
+        
+        int smallIndex = left;
+        for (int i = left; i < right; i++) {
+            if (nums[i] < nums[right]) {
+                swap(nums[i], nums[smallIndex]);
+                smallIndex++;
+            }
+        }
+        
+        swap(nums[smallIndex], nums[right]);
+        return smallIndex;        
+    }
+};
+
+
+class Solution {
+public:
+    int findKthLargest(vector<int>& nums, int k) {
+        srand(time(0));
+        quickSort(nums, 0, nums.size() - 1);
+        return nums[nums.size() - k];
+    }
+    
+    void quickSort(vector<int>& nums, int left, int right) {
+        if (left >= right) return;
+        
+        int pivotIndex = rand() % (right - left) + left;
+        
+        pivotIndex = partition(nums, left, right, pivotIndex);
+        quickSort(nums, left, pivotIndex - 1);
+        quickSort(nums, pivotIndex + 1 , right);
+    }
+    
+    int partition(vector<int>& nums, int left, int right, int pivotIndex) {
+        swap(nums[right], nums[pivotIndex]);
+        
+        int smallIndex = left;
+        for (int i = left; i < right; i++) {
+            if (nums[i] < nums[right]) {
+                swap(nums[i], nums[smallIndex]);
+                smallIndex++;
+            }
+        }
+        
+        swap(nums[smallIndex], nums[right]);               
+        return smallIndex;
+    }
+};
