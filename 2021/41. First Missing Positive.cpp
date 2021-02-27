@@ -36,3 +36,32 @@ public:
         return n + 1;
     }
 };
+
+class Solution {
+public:
+    int firstMissingPositive(vector<int>& nums) {
+        int N = nums.size();
+        for (int i = 0; i < N; i++) {
+            if (nums[i] <= 0 || nums[i] > N) {
+                nums[i] = 0;
+            }
+        }
+        
+        for (int i = 0; i < N; i++) {
+            if (nums[i] <= 0 ) continue;
+            
+            int tmp = nums[i];
+            nums[i] = 0;
+            while (tmp > 0) {
+                int index = tmp - 1;
+                tmp = nums[index];                
+                nums[index] = -1;                
+            }            
+        }
+        
+        for (int i = 0; i < N; i++) {
+            if (nums[i] != -1) return i + 1;
+        }
+        return N + 1;
+    }
+};

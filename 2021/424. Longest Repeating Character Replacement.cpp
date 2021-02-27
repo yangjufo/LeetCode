@@ -17,3 +17,22 @@ public:
         return res;
     }
 };
+
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        vector<int> counter(26, 0);
+        int maxCount = 0, maxLen = 0, start = 0;
+        for (int i = 0; i < s.length(); i++) {
+            counter[s[i] - 'A']++;
+            maxCount = max(maxCount, counter[s[i] - 'A']);
+            while (i - start + 1 - maxCount > k) {
+                counter[s[start] - 'A']--;
+                start++;
+            }
+            maxLen = max(maxLen, i - start + 1);
+        }
+        return maxLen;
+    }
+};
