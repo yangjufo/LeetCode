@@ -107,3 +107,42 @@ public:
         return pA;
     }
 };
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *pA = headA, *pB = headB;
+        int lenA = 0, lenB = 0;
+        while (pA != NULL) {
+            lenA++;
+            pA = pA->next;
+        }
+        while (pB != NULL) {
+            lenB++;
+            pB = pB->next;
+        }
+        if (lenA < lenB) {
+            pA = headB;
+            pB = headA;
+        } else {
+            pA = headA;
+            pB = headB;
+        }
+        for (int i = 0; i < abs(lenA - lenB); i++) {
+            pA = pA->next;
+        }
+        while (pA != NULL && pA != pB) {
+            pA = pA->next;
+            pB = pB->next;
+        }
+        return pA;
+    }
+};
