@@ -102,3 +102,83 @@ public:
  * int param_2 = obj->get(key);
  * obj->remove(key);
  */
+
+class Node {
+public:
+    int key;
+    int val;
+    Node *prev, *next;
+    
+    Node(int _key, int _val): key(_key), val(_val), prev(NULL), next(NULL) {}
+};
+
+class MyHashMap {
+public:
+    int capacity = 2069;
+    vector<Node*> nodes;    
+    /** Initialize your data structure here. */
+    MyHashMap() {        
+        nodes.resize(2069, NULL);
+    }
+    
+    /** value will always be non-negative. */
+    void put(int key, int value) {
+        int index = key % capacity;
+        if (nodes[index] == NULL) {
+            nodes[index] = new Node(-1, -1);
+        }
+        Node* head = nodes[index]->next, *prev = nodes[index];
+        while (head != NULL) {
+            if (head->key == key) {
+                head->val = value;
+                return;
+            }
+            prev = head;
+            head = head->next;
+        }
+        Node* node = new Node(key, value);
+        prev->next = node;
+    }
+    
+    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+    int get(int key) {
+        int index = key % capacity;
+        if (nodes[index] == NULL) {
+            return -1;
+        }
+        Node *head = nodes[index]->next;
+        while (head != NULL) {
+            if (head->key == key) {
+                return head->val;
+            }
+            head = head->next;
+        }
+        return -1;
+    }
+    
+    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
+    void remove(int key) {
+        int index = key % capacity;
+        if (nodes[index] == NULL) {
+            return;
+        }
+        Node *head = nodes[index]->next, *prev = nodes[index];
+        while (head != NULL) {
+            if (head->key == key) {
+                prev->next = head->next;
+                delete head;
+                return;
+            }          
+            prev = head;
+            head = head->next;
+        }
+    }
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap* obj = new MyHashMap();
+ * obj->put(key,value);
+ * int param_2 = obj->get(key);
+ * obj->remove(key);
+ */
