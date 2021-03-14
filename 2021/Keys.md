@@ -8,3 +8,4 @@
 8. Whether a graph is a tree -> number of edges = number of nodes - 1
 9. BFS -> mark visited when adding neighbors. Otherwise, a cell can be pushed to the queue multiple times
 10. (i & 0x1) == 1
+11. Use `pair` or `array<int, 2>` whenever possible, it has better performance than `vector`

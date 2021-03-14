@@ -24,3 +24,26 @@ public:
         return maxArea;
     }
 };
+
+class Solution {
+public:
+    int largestRectangleArea(vector<int>& heights) {
+        stack<int> heightStack;    
+        heightStack.push(-1);
+        int maxArea = 0;
+        for (int i = 0; i < heights.size(); i++) {
+            while (heightStack.top() != -1 && heights[i] < heights[heightStack.top()]) {
+                int index = heightStack.top();
+                heightStack.pop();
+                maxArea = max(maxArea, heights[index] * (i - heightStack.top() - 1));
+            }                         
+            heightStack.push(i);
+        }
+        while (heightStack.top() != -1) {
+            int index = heightStack.top();
+            heightStack.pop();
+            maxArea = max(maxArea, heights[index] * ((int) heights.size() - heightStack.top() - 1));
+        }
+        return maxArea;
+    }
+};

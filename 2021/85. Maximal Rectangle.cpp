@@ -70,3 +70,39 @@ public:
         return maxRect;
     }
 };
+
+
+class Solution {
+public:
+    int maximalRectangle(vector<vector<char>>& matrix) {
+        int M = matrix.size();
+        if (M == 0) return 0;
+        int N = matrix[0].size(), maxArea = 0;
+        vector<int> left(N, 0), right(N, N), height(N, 0);
+        for (int i = 0; i < M; i++) {
+            int currLeft = 0, currRight = N;
+            for (int j = 0; j < N; j++) {
+                if (matrix[i][j] == '1') {
+                    height[j] += 1;                    
+                    left[j] = max(currLeft, left[j]);
+                } else {
+                    height[j] = 0;
+                    left[j] = 0;
+                    currLeft = j + 1;
+                }
+            }
+            for (int j = N - 1; j >= 0; j--) {
+                if (matrix[i][j] == '1') {                    
+                    right[j] = min(currRight, right[j]);
+                } else {
+                    currRight = j;
+                    right[j] = N;
+                }
+            }
+            for (int j = 0; j < N; j++) {
+                maxArea = max(maxArea, (right[j] - left[j]) * height[j]);
+            }            
+        }
+        return maxArea;
+    }
+};
