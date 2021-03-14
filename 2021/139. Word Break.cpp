@@ -18,3 +18,50 @@ public:
         return canBreak[s.length()];
     }
 };
+
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string> wordSet(wordDict.begin(), wordDict.end());
+        int N = s.length();
+        bool dp[N + 1];
+        fill(dp, dp + N + 1, false);
+        dp[0] = true;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = 0; j <= i; j++) {                
+                if (wordSet.find(s.substr(j, i - j + 1)) != wordSet.end() && dp[j]) {
+                    dp[i + 1] = true;
+                    break;
+                }
+            }
+        }        
+        return dp[N];
+    }
+};
+
+class Solution {
+public:
+    unordered_map<string, bool> mem;
+    bool wordBreak(string s, vector<string>& wordDict) {
+        return backtrack(s, wordDict);
+    }
+    
+    bool backtrack(string s, vector<string>& wordDict) {        
+        if (mem.find(s) != mem.end()) {
+            return mem[s];            
+        }
+        if (s.empty()) {
+            return true;
+        }
+        mem[s] = false;
+        for (string& word : wordDict) {
+            if (s.find(word) == 0) {
+                if (backtrack(s.substr(word.length()), wordDict)) {
+                    mem[s] = true;
+                    break;
+                }
+            }
+        }
+        return mem[s];
+    }
+};
