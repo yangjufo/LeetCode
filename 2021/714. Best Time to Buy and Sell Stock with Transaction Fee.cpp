@@ -15,3 +15,20 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices, int fee) {
+        int profit = 0, buy = INT_MAX;
+        for (int price : prices) {
+            if (price + fee < buy) {
+                buy = price + fee;
+            }
+            if (price > buy) {
+                profit += price - buy;
+                buy = price;
+            }
+        }
+        return profit;
+    }
+};
