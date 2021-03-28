@@ -50,3 +50,34 @@ public:
         return s.substr(maxStart, maxLen);
     }        
 };
+
+
+class Solution {
+public:
+    string longestPalindrome(string s) {        
+        int maxLen = 0, maxStart = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int left = expand(s, i, i);
+            if ((i - left) * 2 + 1 > maxLen) {
+                maxStart = left;
+                maxLen = (i - left) * 2 + 1;
+            } 
+            left = expand(s, i, i + 1);
+            if ((i - left + 1) * 2 > maxLen) {
+                maxStart = left;
+                maxLen = (i - left + 1) * 2;
+            }
+        }
+        return s.substr(maxStart, maxLen);
+    }
+    
+    int expand(string& s, int left, int right) {
+        while (left >= 0 && right < s.length() && s[left] == s[right]) {
+            left--;
+            right++;
+        }
+        left++;
+        right--;
+        return left;
+    }
+};

@@ -19,3 +19,20 @@ public:
         return count;
     }
 };
+
+class Solution {
+public:
+    int countSubstrings(string s) {
+        int count = 0;
+        vector<vector<bool>> dp(s.length(), vector<bool>(s.length(), false));
+        for (int i = s.length() - 1; i >= 0; i--) {
+            for (int j = i; j < s.length(); j++) {
+                if (s[i] == s[j]) {
+                    dp[i][j] = (i + 1 < j - 1) ? dp[i + 1][j - 1] : true;                   
+                    count += dp[i][j] ? 1 : 0;
+                }                
+            }
+        }
+        return count;
+    }
+};
