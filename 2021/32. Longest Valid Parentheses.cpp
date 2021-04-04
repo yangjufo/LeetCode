@@ -58,3 +58,41 @@ public:
         return maxLen;
     }
 };
+
+
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        stack<int> pStack;
+        int maxLen = 0;
+        for (char c : s) {
+            if (c == '(') {
+                pStack.push(-1);
+            } else {
+                int curr = 0;
+                while (!pStack.empty() && pStack.top() > 0) {
+                    curr += pStack.top();
+                    pStack.pop();
+                }
+                if (!pStack.empty() && pStack.top() == -1) {
+                    pStack.pop();
+                    curr += 2;
+                    while (!pStack.empty() && pStack.top() > 0) {
+                        curr += pStack.top();
+                        pStack.pop();
+                    }
+                } else {
+                    curr = 0;
+                    while (!pStack.empty()) {
+                        pStack.pop();
+                    }
+                }         
+                if (curr > 0) {
+                    pStack.push(curr);
+                }
+                maxLen = max(maxLen, curr);
+            }
+        }
+        return maxLen;
+    }
+};
