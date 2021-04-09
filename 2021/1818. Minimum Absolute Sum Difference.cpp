@@ -11,10 +11,10 @@ public:
             if (maxGain < absDiff) {
                 auto it = lower_bound(tmp1.begin(), tmp1.end(), nums2[i]);
                 if (it != end(tmp1)) {
-                    maxGain = max(maxGain, abs(absDiff - abs(*it - nums2[i])));
+                    maxGain = max(maxGain, absDiff - abs(*it - nums2[i]));
                 }
                 if (it != begin(tmp1)) {
-                    maxGain = max(maxGain, abs(absDiff - abs(*prev(it) - nums2[i])));
+                    maxGain = max(maxGain, absDiff - abs(*prev(it) - nums2[i]));
                 }
             }
         }        
