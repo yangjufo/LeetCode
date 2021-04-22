@@ -44,3 +44,17 @@ public:
         return minlen[0];
     }
 };
+
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int n = triangle.size();
+        vector<int> line = triangle[n - 1];
+        for (int i = n - 2; i >= 0; i--) {
+            for (int j = 0; j < triangle[i].size(); j++) {
+                line[j] = min(line[j], line[j + 1]) + triangle[i][j];
+            }
+        }
+        return line[0];
+    }
+};
