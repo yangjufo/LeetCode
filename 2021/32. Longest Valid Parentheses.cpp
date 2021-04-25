@@ -96,3 +96,63 @@ public:
         return maxLen;
     }
 };
+
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        stack<pair<char, int>> pStack;        
+        int maxLen = 0;
+        for (char c : s) {
+            if (c == '(') {
+                pStack.push({'(', 2});
+            } else {
+                int curr = 0;
+                while (!pStack.empty() && pStack.top().first != '(') {
+                    curr += pStack.top().second;
+                    pStack.pop();
+                }
+                maxLen = max(maxLen, curr);
+                if (!pStack.empty() && pStack.top().first == '(') {
+                    curr += 2;
+                    pStack.pop();
+                    maxLen = max(maxLen, curr);
+                    pStack.push({'n', curr});
+                }                
+            }
+        }
+        int curr = 0;
+        while (!pStack.empty()) {
+            if (pStack.top().first == 'n') {
+                curr += pStack.top().second;
+            } else {
+                curr = 0;
+            }            
+            pStack.pop();
+            maxLen = max(maxLen, curr);
+        }                            
+        return maxLen;
+    }
+};
+
+
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int maxLen = 0;
+        stack<int> index;
+        index.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '(') {
+                index.push(i);
+            } else {
+                index.pop();
+                if (index.empty()) {
+                    index.push(i);
+                } else {                    
+                    maxLen = max(maxLen, i - index.top());
+                }
+            }
+        }
+        return maxLen;
+    }
+};

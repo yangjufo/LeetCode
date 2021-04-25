@@ -63,3 +63,21 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    string convert(string s, int numRows) {
+        if (numRows == 1) return s;
+        string res;
+        int diff = numRows * 2 - 2;
+        for (int i = 0; i < numRows; i++) {
+            for (int j = i; j < s.length(); j += diff) {
+                res += s[j];
+                if (i != 0 && i != numRows - 1 && j + diff - (i * 2) < s.length()) {
+                    res += s[j + diff - (i * 2)];
+                }
+            }
+        }
+        return res;
+    }
+};
