@@ -61,3 +61,34 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int left = 0, right = (int)nums.size() - 1;
+        vector<int> res;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        if (left < nums.size() && nums[left] == target) res.push_back(left);
+        else return {-1, -1};
+        
+        left = 0, right = (int)nums.size() - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;            
+            if (nums[mid] <= target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }            
+        }        
+        if (nums[left] == target) res.push_back(left);
+        else res.push_back(left - 1);
+        return res;
+    }        
+};
