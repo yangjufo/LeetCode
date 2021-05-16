@@ -39,3 +39,28 @@ public:
         return numFound;
     }
 };
+
+class Solution {
+public:
+    bool isNumber(string s) {
+        bool digitFound = false, dotFound = false, eFound = false, signFound = false;
+        for (char c : s) {            
+            if (isdigit(c)) {
+                digitFound = true;
+            } else if (c == '+' || c == '-') {
+                if (signFound || digitFound || dotFound) return false;
+                signFound = true;
+            } else if (c == '.') {
+                if (dotFound || eFound) return false;
+                dotFound = true;
+            } else if (c == 'e' || c == 'E') {
+                if (eFound || !digitFound) return false;
+                eFound = true;
+                signFound = digitFound = dotFound = false;
+            } else {
+                return false;
+            }
+        }
+        return digitFound;
+    }
+};
