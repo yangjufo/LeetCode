@@ -33,3 +33,37 @@ public:
         return numStack.top();
     }
 };
+
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        stack<int> numStack;
+        for (string& t : tokens) {
+            if (t == "+" || t == "-" || t == "*" || t == "/") {
+                int num2 = numStack.top();
+                numStack.pop();
+                int num1 = numStack.top();
+                numStack.pop();
+                int tmp = 0;
+                switch (t[0]) {
+                    case '+':
+                        tmp = num1 + num2;
+                        break;
+                    case '-':
+                        tmp = num1 - num2;
+                        break;
+                    case '*':
+                        tmp = num1 * num2;
+                        break;
+                    case '/':
+                        tmp = num1 / num2;
+                        break;                    
+                }
+                numStack.push(tmp);
+            } else {
+                numStack.push(stoi(t));
+            }
+        }
+        return numStack.top();
+    }
+};
