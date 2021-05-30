@@ -39,3 +39,33 @@ public:
         return true;        
     }        
 };
+
+class Solution {
+public:
+    vector<bool> cols, diags, rdiags;
+    int total = 0;
+    int totalNQueens(int n) {        
+        cols.resize(n, false);
+        diags.resize(2 * n - 1, false);
+        rdiags.resize(2 * n - 1, false);
+        backtrack(0, n);
+        return total;
+    }
+    
+    void backtrack(int row, int n) {
+        if (row >= n) {
+            total += 1;
+            return;
+        }
+        for (int col = 0; col < n; col++) {
+            if (cols[col] || diags[row + col] || rdiags[col - row + n - 1]) continue;
+            cols[col] = true;
+            diags[row + col] = true;
+            rdiags[col - row + n - 1] = true;
+            backtrack(row + 1, n);
+            cols[col] = false;
+            diags[row + col] = false;
+            rdiags[col - row + n - 1] = false;
+        }
+    }
+};
