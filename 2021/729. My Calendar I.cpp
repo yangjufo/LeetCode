@@ -46,3 +46,26 @@ public:
  * MyCalendar* obj = new MyCalendar();
  * bool param_1 = obj->book(start,end);
  */
+
+class MyCalendar {
+public:
+    set<int> eventStart;
+    unordered_map<int, int> eventEnd;
+    MyCalendar() {        
+    }
+    
+    bool book(int start, int end) {
+        auto iter = upper_bound(eventStart.begin(), eventStart.end(), start);
+        if (iter != eventStart.begin() && eventEnd[*prev(iter)] > start) return false;
+        if (iter != eventStart.end() && *iter < end) return false;
+        eventStart.insert(start);
+        eventEnd[start] = end;
+        return true;
+    }
+};
+
+/**
+ * Your MyCalendar object will be instantiated and called as such:
+ * MyCalendar* obj = new MyCalendar();
+ * bool param_1 = obj->book(start,end);
+ */
