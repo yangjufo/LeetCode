@@ -31,3 +31,35 @@ public:
         return head;        
     }
 };
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseBetween(ListNode* head, int left, int right) {
+        ListNode *dummyHead = new ListNode(), *leftTail = dummyHead;
+        dummyHead->next = head;
+        for (int i = 1; i < left; i++) {
+            head = head->next;
+            leftTail = leftTail->next;
+        }        
+        ListNode* prev = leftTail, *midTail = head;
+        for (int i = left; i <= right; i++) {
+            ListNode* next = head->next;
+            head->next = prev;
+            prev = head;
+            head = next;
+        }
+        leftTail->next = prev;
+        midTail->next = head;
+        return dummyHead->next;
+    }
+};
