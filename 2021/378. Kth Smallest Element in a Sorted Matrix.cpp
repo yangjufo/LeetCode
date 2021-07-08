@@ -39,3 +39,46 @@ public:
         return lo;
     }
 };
+
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int m = matrix.size(), n = matrix[0].size();
+        int lo = matrix[0][0], hi = matrix[m - 1][n - 1];
+        while (lo < hi) {
+            int mid = lo + (hi - lo) / 2, count = 0, j = n - 1;           
+            for (int i = 0; i < m; i++) {
+                while (j >= 0 && matrix[i][j] > mid) {
+                    j--;
+                }
+                count += j + 1;
+            }
+            if (count < k) lo = mid + 1;
+            else hi = mid;
+        }
+        return lo;
+    }
+};
+
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        auto comparator = [](array<int, 3>& left, array<int, 3>& right) {
+            return left[2] > right[2];
+        };
+        
+        priority_queue<array<int, 3>, vector<array<int, 3>>, decltype(comparator)> pq(comparator);
+        for (int i = 0; i < matrix[0].size(); i++) {
+            pq.push({0, i, matrix[0][i]});
+        }
+        
+        for (int i = 0; i < k - 1; i++) {            
+            int row = pq.top()[0], col = pq.top()[1];
+            pq.pop();
+            if (row + 1 < matrix.size()) {
+                pq.push({row + 1, col, matrix[row + 1][col]});
+            }
+        }
+        return pq.top()[2];
+    }
+};
