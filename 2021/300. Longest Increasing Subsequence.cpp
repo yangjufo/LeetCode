@@ -56,3 +56,19 @@ public:
         return (dp.empty()) ? 0 : (target > dp[left]) ? left + 1 : left;
     }
 };
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> dp;
+        for (int n : nums) {
+            auto iter = lower_bound(dp.begin(), dp.end(), n);
+            if (iter == dp.end()) {
+                dp.push_back(n);
+            } else {
+                *iter = n;
+            }        
+        }
+        return dp.size();
+    }
+};
