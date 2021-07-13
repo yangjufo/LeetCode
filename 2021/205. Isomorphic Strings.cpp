@@ -32,3 +32,22 @@ public:
         return true;
     }
 };
+
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        unordered_map<char, int> sMap, tMap;
+        for (int i = 0; i < s.length(); i++) {
+            if (sMap.find(s[i]) == sMap.end()) {
+                if (tMap.find(t[i]) != tMap.end()) {
+                    return false;
+                }
+                sMap[s[i]] = i;
+                tMap[t[i]] = i;
+            } else if (tMap.find(t[i]) == tMap.end() || sMap[s[i]] != tMap[t[i]]) {
+                return false;                          
+            }            
+        }
+        return true;
+    }
+};
