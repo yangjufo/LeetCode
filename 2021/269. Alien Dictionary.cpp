@@ -47,3 +47,48 @@ public:
         return ans.length() < nodeCount.size() ? "" : ans;
     }            
 };
+
+class Solution {
+public:
+    string alienOrder(vector<string>& words) {
+        unordered_map<char, int> degrees;
+        unordered_map<char, unordered_set<char>> edges;
+        for (int i = 0; i < words.size(); i++) {
+            int j = 0;
+            if (i != 0) {                
+                while (j < words[i - 1].length() && j < words[i].length() && words[i - 1][j] == words[i][j]) {
+                    degrees[words[i][j]] += 0;                    
+                    j++;
+                }
+                if (j < words[i - 1].length() && j >= words[i].length()) return "";
+                if (j < words[i - 1].length() && edges[words[i - 1][j]].find(words[i][j]) == edges[words[i - 1][j]].end()) {
+                    edges[words[i - 1][j]].insert(words[i][j]);
+                    degrees[words[i][j]] += 1;
+                }
+            }   
+            while (j < words[i].length()) {
+                degrees[words[i][j]] += 0;
+                j++;
+            }            
+        }
+        string res;
+        queue<char> order;
+        for (auto& iter : degrees) {
+            if (iter.second == 0) {
+                order.push(iter.first);
+            }
+        }
+        while (!order.empty()) {
+            char curr = order.front();
+            res += curr;
+            order.pop();
+            for (char neigh : edges[curr]) {                
+                degrees[neigh]--;
+                if (degrees[neigh] == 0) {
+                    order.push(neigh);
+                }                
+            }
+        }
+        return res.size() < degrees.size() ? "" : res;
+    }
+};
