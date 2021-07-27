@@ -52,3 +52,35 @@ public:
         return indexes;
     }
 };
+
+class Solution {
+public:
+    vector<int> findSubstring(string s, vector<string>& words) {
+        int m = words.size(), n = words[0].length();
+        unordered_map<string, int> wordMap;
+        for (string w : words) {
+            wordMap[w]++;
+        }        
+        vector<int> res;
+        for (int i = 0; i < (int)s.length() - m * n + 1; i++) {
+            if (wordMap.find(s.substr(i, n)) != wordMap.end()) {
+                int j = i, count = 0;
+                unordered_map<string, int> wordCount;
+                while (j < s.length() && count < m) {
+                    string w = s.substr(j, n);                    
+                    if (wordCount[w] < wordMap[w]) {
+                        wordCount[w]++;
+                        count++;
+                    } else {
+                        break;
+                    }
+                    j += n;
+                }
+                if (count >= m) {
+                    res.push_back(i);
+                }
+            }
+        }
+        return res;
+    }
+};

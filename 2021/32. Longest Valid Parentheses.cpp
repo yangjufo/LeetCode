@@ -156,3 +156,61 @@ public:
         return maxLen;
     }
 };
+
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        stack<int> stack;
+        int maxLen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '(') {
+                stack.push(-1);
+            } else {
+                int currLen = 0;
+                while (!stack.empty() && stack.top() != -1) {
+                    currLen += stack.top();    
+                    stack.pop();
+                }
+                if (!stack.empty()) {
+                    stack.pop();
+                    currLen += 2;
+                    stack.push(currLen);
+                }
+                maxLen = max(maxLen, currLen);
+            }
+        }
+        int currLen = 0;
+        while (!stack.empty()) {
+            if (stack.top() != -1) {
+                currLen += stack.top();
+            } else {
+                currLen = 0;                
+            }
+            maxLen = max(maxLen, currLen);
+            stack.pop();
+        }
+        return maxLen;
+    }
+};
+
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int maxLen = 0;
+        stack<int> index;
+        index.push(-1);
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == '(') {
+                index.push(i);
+            } else {
+                index.pop();
+                if (index.empty()) {                
+                    index.push(i);
+                } else {
+                    maxLen = max(maxLen, i - index.top());
+                }                
+            }
+        }
+        return maxLen;
+    }
+};

@@ -49,3 +49,49 @@ public:
         return false;
     }
 };
+
+class Solution {
+public:    
+    void solveSudoku(vector<vector<char>>& board) {        
+        dfs(board);
+    }
+    
+    bool dfs(vector<vector<char>>& board) {
+        auto rowCol = findEmpty(board);
+        int row = rowCol.first, col = rowCol.second;
+        if (row == -1 && col == -1) return true;
+        for (int i = 1; i <= 9; i++) {
+            if (canPlace(board, row, col, i + '0')) {
+                board[row][col] = i + '0';
+                if(dfs(board)) {
+                    return true;
+                }
+                board[row][col] = '.';
+            }
+        }
+        return false;
+    }
+    
+    pair<int, int> findEmpty(vector<vector<char>>& board) {
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                if (board[i][j] == '.') {
+                    return {i, j};
+                }
+            }
+        }
+        return {-1, -1};
+    }
+    
+    bool canPlace(vector<vector<char>>& board, int row, int col, char val) {
+        for (int i = 0; i < 9; i++) {
+            if (board[row][i] == val || board[i][col] == val) return false;
+        }
+        for (int i = (row / 3 * 3); i < (row / 3 * 3) + 3; i++) {
+            for (int j = (col / 3 * 3); j < (col / 3 * 3) + 3; j++) {
+                if (board[i][j] == val) return false;
+            }
+        }
+        return true;
+    }
+};

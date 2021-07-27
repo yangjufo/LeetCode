@@ -72,3 +72,23 @@ public:
     }        
         
 };
+
+class Solution {
+public:
+    vector<vector<bool>> mem;
+    bool isInterleave(string s1, string s2, string s3) {
+        if (s1.length() + s2.length() != s3.length()) return false;
+        mem.resize(s1.length() + 1, vector<bool>(s2.length() + 1, false));
+        return isInterleave(s1, 0, s2, 0, s3, 0);
+    }
+    
+    bool isInterleave(string& s1, int index1, string& s2, int index2, string& s3, int index3) {        
+        if (index3 >= s3.length()) return true;
+        if (mem[index1][index2]) return false;
+        if ((index1 < s1.length() && s1[index1] == s3[index3] && isInterleave(s1, index1 + 1, s2, index2, s3, index3 + 1)) || (index2 < s2.length() && s2[index2] == s3[index3] && isInterleave(s1, index1, s2, index2 + 1, s3, index3 + 1))) {
+            return true;
+        }
+        mem[index1][index2] = true;
+        return false;
+    }
+};

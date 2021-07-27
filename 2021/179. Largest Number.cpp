@@ -19,3 +19,19 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    string largestNumber(vector<int>& nums) {
+        sort(nums.begin(), nums.end(), [](int left, int right) {
+            string leftStr = to_string(left), rightStr = to_string(right);
+            return leftStr + rightStr > rightStr + leftStr;            
+        });
+        string res;
+        for (int n : nums) {
+            if (res.empty() && n == 0) continue;
+            res += to_string(n);
+        }
+        return res.empty() ? "0" : res;
+    }
+};
