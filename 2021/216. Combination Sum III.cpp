@@ -41,3 +41,27 @@ public:
         }
     }
 };
+
+class Solution {
+public:
+    vector<vector<int>> res;    
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<int> curr;
+        backtrack(curr, 1, 0, k, n);
+        return res;
+    }
+    
+    void backtrack(vector<int>& curr, int index, int sum, int k, int n) {
+        if (k == curr.size()) {            
+            if (sum == n) {
+                res.push_back(curr);
+            }
+            return;
+        }        
+        for (int i = index; i <= 9 && sum + i <= n; i++) {
+            curr.push_back(i);
+            backtrack(curr, i + 1, sum + i, k, n);
+            curr.pop_back();
+        }
+    }
+};

@@ -51,3 +51,21 @@ public:
         return true;
     }
 };
+
+class Solution {
+public:
+    bool isIsomorphic(string s, string t) {
+        if (s.length() != t.length()) return false;
+        unordered_map<char, int> sMap, tMap;
+        for (int i = 0; i < s.length(); i++) {
+            if (sMap.find(s[i]) == sMap.end() && tMap.find(t[i]) == tMap.end()) {
+                sMap[s[i]] = i;
+                tMap[t[i]] = i;
+            } 
+            if ((sMap.find(s[i]) == sMap.end() || tMap.find(t[i]) == tMap.end() || sMap[s[i]] != tMap[t[i]])) {
+                return false;
+            }
+        }
+        return true;
+    }
+};

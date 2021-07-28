@@ -189,3 +189,101 @@ public:
         return cloneHead;
     }
 };
+
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        unordered_map<Node*, Node*> nodeMap;
+        Node* curr = head;
+        while (curr != NULL) {            
+            if (nodeMap.find(curr) == nodeMap.end()) {
+                nodeMap[curr] = new Node(curr->val);
+            }
+            curr = curr->next;
+        }
+        curr = head;
+        while (curr != NULL) {
+            if (curr->random != NULL) {
+                nodeMap[curr]->random = nodeMap[curr->random];
+            }
+            if (curr->next != NULL) {
+                nodeMap[curr]->next = nodeMap[curr->next];
+            }
+            curr = curr->next;
+        }
+        return nodeMap[head];
+    }
+};
+/*
+// Definition for a Node.
+class Node {
+public:
+    int val;
+    Node* next;
+    Node* random;
+    
+    Node(int _val) {
+        val = _val;
+        next = NULL;
+        random = NULL;
+    }
+};
+*/
+
+class Solution {
+public:
+    Node* copyRandomList(Node* head) {
+        if (head == NULL) return NULL;
+        Node* cloneHead = NULL, *curr = head;
+        // clone nodes, put the new node right after the original node
+        while (curr != NULL) {
+            Node* next = curr->next, *clone = new Node(curr->val);
+            if (cloneHead == NULL) {
+                cloneHead = clone;
+            }
+            curr->next = clone;
+            clone->next = next;
+            curr = next;
+        }        
+        
+        // let the clone node point to the random node
+        curr = head;
+        while (curr != NULL) {   
+            Node* clone = curr->next, *next = clone->next;            
+            if (curr->random != NULL) {
+                clone->random = curr->random->next;
+            }                        
+            curr = next;
+        }
+        
+        // split two lists
+        curr = head;
+        Node* prev = NULL; // pointer for the clone list
+        while (curr != NULL) {
+            Node* clone = curr->next, *next = clone->next;
+            curr->next = next;
+            if (prev != NULL) {
+                prev->next = clone;
+            }
+            prev = clone;
+            curr = next;
+        }
+        return cloneHead;
+    }
+};

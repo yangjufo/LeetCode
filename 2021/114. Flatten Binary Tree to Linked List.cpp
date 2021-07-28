@@ -126,3 +126,66 @@ public:
         root->right = right;
     }
 };
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        if (root == NULL) return;
+        stack<TreeNode*> treeStack;
+        treeStack.push(root);
+        TreeNode* prev = new TreeNode();
+        while (!treeStack.empty()) {
+            TreeNode* node = treeStack.top();
+            treeStack.pop();           
+            prev->right = node;
+            prev->left = NULL;
+            if (node->right != NULL) {
+                treeStack.push(node->right);
+            }
+            if (node->left != NULL) {
+                treeStack.push(node->left);
+            }
+            prev = node;
+        }        
+    }
+};
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void flatten(TreeNode* root) {
+        while (root != NULL) {
+            if (root->left != NULL) {
+                TreeNode* rightMost = root->left;
+                while (rightMost->right != NULL) {
+                    rightMost = rightMost->right;
+                }
+                rightMost->right = root->right;
+                root->right = root->left;
+                root->left = NULL;
+            }
+            root = root->right;
+        }
+    }
+};

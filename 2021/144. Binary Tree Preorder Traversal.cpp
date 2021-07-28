@@ -230,3 +230,101 @@ public:
         return res;
     }
 };
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        if (root == NULL) return res;
+        stack<TreeNode*> treeStack;
+        treeStack.push(root);
+        while (!treeStack.empty()) {
+            TreeNode* node = treeStack.top();
+            treeStack.pop();
+            res.push_back(node->val);
+            if (node->right != NULL) {
+                treeStack.push(node->right);
+            }
+            if (node->left != NULL) {
+                treeStack.push(node->left);
+            }
+        }  
+        return res;
+    }
+};
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> res;
+    vector<int> preorderTraversal(TreeNode* root) {
+        preorder(root);
+        return res;
+    }
+    
+    void preorder(TreeNode* root) {
+        if (root == NULL) return;
+        res.push_back(root->val);
+        preorder(root->left);
+        preorder(root->right);
+    }
+};
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> preorderTraversal(TreeNode* root) {
+        vector<int> res;
+        while (root != NULL) {                         
+            if (root->left != NULL) {
+                TreeNode* rightMost = root->left;
+                while (rightMost->right != NULL && rightMost->right != root) {
+                    rightMost = rightMost->right;
+                }
+                if (rightMost->right == NULL) {
+                    rightMost->right = root;
+                    res.push_back(root->val);
+                    root = root->left;
+                } else {
+                    rightMost->right = NULL;
+                    root = root->right;
+                }
+            }  else {
+                res.push_back(root->val);
+                root = root->right;
+            }
+        }        
+        return res;
+    }
+};

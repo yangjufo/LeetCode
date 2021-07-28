@@ -17,6 +17,23 @@ public:
 
 class Solution {
 public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        unordered_map<string, int> count;
+        for (int i = 0; i <= (int)s.length() - 10; i++) {
+            count[s.substr(i, 10)]++;
+        }
+        vector<string> res;
+        for (auto& iter : count) {
+            if (iter.second > 1) {
+                res.push_back(iter.first);
+            }
+        }
+        return res;
+    }
+};
+
+class Solution {
+public:
     unordered_map<char, int> cMap = 
     {
         {'A', 0}, {'C', 1}, {'G', 2}, {'T', 3}  
@@ -48,5 +65,26 @@ public:
             seen.insert(h);
         }        
         return vector<string>(output.begin(), output.end());
+    }
+};
+
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        unordered_map<char, int> cMap = {{'A', 0}, {'C', 1}, {'G', 2}, {'T', 3}};
+        unordered_set<int> seen;
+        unordered_set<string> outputs;
+        int index = 0;
+        for (int i = 0; i < s.length(); i++) {
+            index = ((index & 0x3FFFF) << 2) | cMap[s[i]];
+            if (i >= 9) {
+                if (seen.find(index) != seen.end()) {
+                    outputs.insert(s.substr(i - 9, 10));
+                }
+                seen.insert(index);
+            }            
+        }
+        vector<string> res(outputs.begin(), outputs.end());
+        return res;
     }
 };
