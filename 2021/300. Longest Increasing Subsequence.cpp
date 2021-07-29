@@ -72,3 +72,19 @@ public:
         return dp.size();
     }
 };
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> seq;
+        for (int n : nums) {
+            auto iter = lower_bound(seq.begin(), seq.end(), n);
+            if (iter == seq.end()) {
+                seq.push_back(n);
+            } else {
+                *iter = n;
+            }
+        }
+        return seq.size();
+    }        
+};

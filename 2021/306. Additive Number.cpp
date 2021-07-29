@@ -16,3 +16,25 @@ public:
         return false;
     }
 };
+
+class Solution {
+public:
+    bool isAdditiveNumber(string num) {
+        return backtrack(num, 0, -1, -1, 0);
+    }
+    
+    bool backtrack(string& num, int index, long long prev2, long prev1, int count) {
+        if (index >= num.length()) return count >= 3;        
+        long long curr = 0;
+        for (int i = index; i <= min((int)num.length(), index + (int)num.length() / 2); i++) {
+            curr = curr * 10 + num[i] - '0';
+            if ((prev2 == -1 || prev2 + prev1 == curr) && backtrack(num, i + 1, prev1, curr, count + 1)) {
+                return true;
+            }            
+            if (num[index] == '0') {
+                break;
+            }
+        }
+        return false;
+    }
+};

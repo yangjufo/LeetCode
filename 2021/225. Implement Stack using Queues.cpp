@@ -146,3 +146,47 @@ public:
  * int param_3 = obj->top();
  * bool param_4 = obj->empty();
  */
+
+class MyStack {
+public:
+    queue<int> stackQueue;
+    /** Initialize your data structure here. */
+    MyStack() {
+        
+    }
+    
+    /** Push element x onto stack. */
+    void push(int x) {        
+        stackQueue.push(x);
+        for (int i = 0; i < (int)stackQueue.size() - 1; i++) {
+            stackQueue.push(stackQueue.front());
+            stackQueue.pop();
+        }            
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        int ret = stackQueue.front();
+        stackQueue.pop();
+        return ret;
+    }
+    
+    /** Get the top element. */
+    int top() {
+        return stackQueue.front();
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return stackQueue.empty();
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->top();
+ * bool param_4 = obj->empty();
+ */

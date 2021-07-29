@@ -41,3 +41,21 @@ public:
         return false;
     }
 };
+
+class Solution {
+public:
+    bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t) {
+        multiset<long> window;
+        for (int i = 0; i < nums.size(); i++) {
+            if (i > k) {
+                window.erase(nums[i - k - 1]);
+            }
+            auto iter = window.lower_bound(nums[i]);
+            if ((iter != window.end() && *iter <= nums[i] + t) || (iter != window.begin() && nums[i] <= *prev(iter) + t)) {
+                return true;
+            }            
+            window.insert(nums[i]);
+        }
+        return false;
+    }
+};

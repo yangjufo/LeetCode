@@ -33,3 +33,16 @@ public:
         }
     }
 };
+
+class Solution {
+public:
+    void wiggleSort(vector<int>& nums) {
+        bool smaller = true;
+        for (int i = 0; i < (int)nums.size() - 1; i++) {
+            if ((smaller && nums[i] > nums[i + 1]) || (!smaller && nums[i] < nums[i + 1])) {
+                swap(nums[i], nums[i + 1]);
+            }
+            smaller = !smaller;
+        }
+    }
+};

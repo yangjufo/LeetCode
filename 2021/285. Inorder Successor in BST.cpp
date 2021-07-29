@@ -104,3 +104,59 @@ public:
         return candidate;
     }
 };
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        stack<TreeNode*> treeStack;        
+        bool found = false;
+        while (root != NULL || !treeStack.empty()) {
+            while (root != NULL) {
+                treeStack.push(root);
+                root = root->left;
+            }
+            root = treeStack.top();
+            treeStack.pop();
+            if (found) {
+                return root;
+            }
+            if (p == root) found = true;
+            root = root->right;
+        }
+        return NULL;
+    }
+};
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* inorderSuccessor(TreeNode* root, TreeNode* p) {
+        TreeNode* cand = NULL;
+        while (root != NULL) {
+            if (root->val <= p->val) {
+                root = root->right;
+            } else {
+                cand = root;
+                root = root->left;
+            }
+        }
+        return cand;
+    }
+};
