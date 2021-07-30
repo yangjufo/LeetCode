@@ -42,3 +42,44 @@ public:
         return max(sold, reset);
     }
 };
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size(), profit = 0;
+        vector<int> buy(n, 0), sell(n, 0);
+        for (int i = 0; i < prices.size(); i++) {
+            if (i == 0) {
+                buy[i] = -prices[i];
+            } else if (i == 1) {
+                buy[i] = max(buy[i - 1], -prices[i]);
+                sell[i] = max(0, prices[i] + buy[i - 1]);
+            } else {
+                buy[i] = max(buy[i - 1], sell[i - 2] - prices[i]);
+                sell[i] = max(sell[i - 1], prices[i] + buy[i - 1]);
+            }                        
+            profit = max(profit, sell[i]);
+        }        
+        return profit;
+    }
+};
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        // s1 => buy => s2
+        // s2 => sell => s3
+        // s1 => reset => s1
+        // s2 => reset = s2
+        // s3 => reset => s1
+        vector<int> s1(n + 1, 0), s2(n + 1, 0), s3(n + 1, 0);
+        s1[0] = 0, s2[0] = -prices[0], s3[0] = INT_MIN;
+        for (int i = 1; i < prices.size(); i++) {
+            s1[i] = max(s1[i - 1], s3[i - 1]);
+            s2[i] = max(s2[i - 1], s1[i - 1] - prices[i]);
+            s3[i] = s2[i - 1] + prices[i];
+        }
+        return max(s1[n - 1], s3[n - 1]);
+    }
+};
