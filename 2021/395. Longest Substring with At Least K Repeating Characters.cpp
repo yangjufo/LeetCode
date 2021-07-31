@@ -65,3 +65,50 @@ public:
         return maxLen;
     }
 };
+
+
+class Solution {
+public:
+    int longestSubstring(string s, int k) {
+        vector<int> count(26, 0);
+        int uniqueCount = 0;
+        for (char c : s) {
+            count[c - 'a']++;
+            if (count[c - 'a'] == 1) {
+                uniqueCount++;
+            }
+        }
+        
+        int maxLen = 0;
+        for (int i = 1; i <= uniqueCount; i++) {
+            fill(count.begin(), count.end(), 0);
+            int start = 0, end = 0, currUnique = 0, atLeastK = 0;
+            while (end < s.length()) {
+                if (currUnique <= i) {
+                    count[s[end] - 'a']++;
+                    if (count[s[end] - 'a'] == 1) {
+                        currUnique++;
+                    }                
+                    if (count[s[end] - 'a'] == k) {
+                        atLeastK++;
+                    }
+                    end++;
+                } else {                    
+                    if (count[s[start] - 'a'] == k) {
+                        atLeastK--;
+                    }
+                    count[s[start] - 'a']--;
+                    if (count[s[start] - 'a'] == 0) {
+                        currUnique--;
+                    }                     
+                    start++;
+                }
+                
+                if (currUnique == i && atLeastK == i) {
+                    maxLen = max(maxLen, end - start);
+                }
+            }            
+        }
+        return maxLen;
+    }
+};

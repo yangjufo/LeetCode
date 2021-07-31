@@ -82,3 +82,48 @@ public:
         return pq.top()[2];
     }
 };
+
+
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        auto comparator = [](array<int, 3>& left, array<int, 3>& right) {
+            return left[2] > right[2];
+        };
+        priority_queue<array<int, 3>, vector<array<int, 3>>, decltype(comparator)> pq(comparator);
+        for (int i = 0; i < matrix[0].size() && i < k; i++) {
+            pq.push({0, i, matrix[0][i]});
+        }
+        
+        for (int i = 0; i < k - 1; i++) {
+            auto curr = pq.top();
+            pq.pop();
+            if (curr[0] + 1 < matrix.size()) {
+                pq.push({curr[0] + 1, curr[1], matrix[curr[0] + 1][curr[1]]});
+            }            
+        }
+        
+        return pq.top()[2];
+    }
+};
+
+
+class Solution {
+public:
+    int kthSmallest(vector<vector<int>>& matrix, int k) {
+        int n = matrix.size();
+        int left = matrix[0][0], right = matrix[n - 1][n - 1];
+        while (left < right) {
+            int mid = left + (right - left) / 2, count = 0, j = n - 1;
+            for (int i = 0; i < n; i++) {
+                while (j >= 0 && matrix[i][j] > mid) {
+                    j--;
+                }
+                count += j + 1;
+            }
+            if (count < k) left = mid + 1;
+            else right = mid;
+        }
+        return left;
+    }
+};

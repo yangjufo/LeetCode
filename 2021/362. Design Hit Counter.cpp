@@ -70,3 +70,43 @@ public:
  * obj->hit(timestamp);
  * int param_2 = obj->getHits(timestamp);
  */
+
+class HitCounter {
+public:
+    vector<int> count, time;  
+    /** Initialize your data structure here. */
+    HitCounter() {
+        count.resize(300, 0);
+        time.resize(300, 0);
+    }
+    
+    /** Record a hit.
+        @param timestamp - The current timestamp (in seconds granularity). */
+    void hit(int timestamp) {
+        if (count[timestamp % 300] > 0 && time[timestamp % 300] == timestamp) {
+            count[timestamp % 300]++;
+        } else {
+            count[timestamp % 300] = 1;
+            time[timestamp % 300] = timestamp;
+        }
+    }
+    
+    /** Return the number of hits in the past 5 minutes.
+        @param timestamp - The current timestamp (in seconds granularity). */
+    int getHits(int timestamp) {
+        int sum = 0;
+        for (int i = 0; i < 300; i++) {
+            if (count[i] > 0 && time[i] + 300 > timestamp) {
+                sum += count[i];
+            }
+        }
+        return sum;
+    }
+};
+
+/**
+ * Your HitCounter object will be instantiated and called as such:
+ * HitCounter* obj = new HitCounter();
+ * obj->hit(timestamp);
+ * int param_2 = obj->getHits(timestamp);
+ */
