@@ -34,3 +34,32 @@ public:
         return count;
     }
 };
+
+class Solution {
+public:
+    vector<string> res;
+    unordered_map<string, map<string, int>> edges;
+    vector<string> findItinerary(vector<vector<string>>& tickets) {        
+        for (vector<string>& t : tickets) {
+            edges[t[0]][t[1]]++;            
+        }        
+        res.push_back("JFK");
+        dfs("JFK", tickets.size(), 0);
+        return res;
+    }
+    
+    bool dfs(string curr, int total, int count) {        
+        for (auto& iter : edges[curr]) {
+            if (iter.second > 0) {
+                iter.second--;
+                res.push_back(iter.first);
+                if (dfs(iter.first, total, count + 1)) {
+                    return true;
+                }                    
+                res.pop_back();
+                iter.second++;
+            }
+        }
+        return count >= total;
+    }
+};

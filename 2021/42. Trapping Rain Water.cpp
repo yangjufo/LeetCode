@@ -93,3 +93,28 @@ public:
         return total;
     }
 };
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int left = 0, right = (int) height.size() - 1, total = 0, maxLeft = INT_MIN, maxRight = INT_MIN;
+        while (left < right) {
+            if (height[left] < height[right]) {
+                if (height[left] < maxLeft) {
+                    total += maxLeft - height[left];
+                } else {
+                    maxLeft = height[left];
+                }
+                left++;
+            } else {
+                if (height[right] < maxRight) {
+                    total += maxRight - height[right];
+                } else {
+                    maxRight = height[right];
+                }
+                right--;
+            }
+        }
+        return total;
+    }
+};

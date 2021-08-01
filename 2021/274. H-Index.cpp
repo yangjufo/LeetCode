@@ -24,3 +24,20 @@ public:
         return k;
     }
 };
+
+class Solution {
+public:
+    int hIndex(vector<int>& citations) {
+        int n = citations.size();
+        vector<int> count(n + 1, 0);
+        for (int c : citations) {
+            count[min(n, c)]++;
+        }
+        
+        int k = n;
+        for (int s = count[k]; k > s; s += count[k]) {
+            k--;
+        }
+        return k;
+    }
+};
