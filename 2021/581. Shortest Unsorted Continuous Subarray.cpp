@@ -71,3 +71,26 @@ public:
         return end - start + 1;
     }    
 };
+
+class Solution {
+public:
+    int findUnsortedSubarray(vector<int>& nums) {
+        int left = 0, right = -1, maxVal = INT_MIN, minVal = INT_MAX;
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] >= maxVal) {
+                maxVal = nums[i];
+            } else {
+                right = i;
+            }
+        }
+        
+        for (int i = (int)nums.size() - 1; i >= 0; i--) {
+            if (nums[i] <= minVal) {
+                minVal = nums[i];
+            } else {
+                left = i;
+            }
+        }
+        return right - left + 1;
+    }
+};

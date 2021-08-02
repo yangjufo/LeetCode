@@ -38,3 +38,24 @@ public:
         return maxIndex == -1 ? "" : d[maxIndex];
     }
 };
+
+class Solution {
+public:
+    string findLongestWord(string s, vector<string>& dict) {
+        vector<int> indexes(dict.size(), 0);
+        string res;
+        for (char c : s) {
+            for (int i = 0; i < dict.size(); i++) {
+                if (indexes[i] < dict[i].length() && c == dict[i][indexes[i]]) {
+                    indexes[i]++;
+                    if (indexes[i] >= dict[i].length()) {
+                        if (res.empty() || dict[i].length() > res.length() || (dict[i].length() == res.length() && dict[i] < res)) {
+                            res = dict[i];
+                        }
+                    }
+                }
+            }
+        }
+        return res;
+    }
+};

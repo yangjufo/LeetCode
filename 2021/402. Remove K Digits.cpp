@@ -28,3 +28,32 @@ public:
         return res.empty() ? "0" : res;
     }
 };
+
+class Solution {
+public:
+    string removeKdigits(string num, int k) {
+        stack<char> digits;
+        for (char c : num) {
+            while (!digits.empty() && k > 0 && c < digits.top()) {
+                digits.pop();
+                k--;
+            }
+            digits.push(c);
+        }
+        while (!digits.empty() && k > 0) {
+            digits.pop();
+            k--;
+        }
+        string res;
+        while (!digits.empty()) {
+            res += digits.top();
+            digits.pop();
+        }
+        reverse(res.begin(), res.end());
+        int start = 0;
+        while (start < res.length() && res[start] == '0') {
+            start++;
+        }
+        return start >= res.length() ? "0" : res.substr(start);
+    }
+};

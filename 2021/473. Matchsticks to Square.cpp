@@ -27,3 +27,37 @@ public:
         return false;
     }
 };
+
+class Solution {
+public:
+    bool makesquare(vector<int>& matchsticks) {
+        int sum = 0;
+        for (int m : matchsticks) {
+            sum += m;
+        }
+        if (sum % 4 != 0) {
+            return false;
+        }
+        int target = sum / 4;
+        return dfs(matchsticks, target, 0, 0, 4);
+    }
+    
+    bool dfs(vector<int>& matchsticks, int target, int curr, int start, int k) {
+        if (k == 1) return true;
+        if (curr > target) return false;
+        if (curr == target) {
+            return dfs(matchsticks, target, 0, 0, k - 1);
+        }
+        for (int i = start; i < matchsticks.size(); i++) {
+            if (matchsticks[i] > 0) {
+                int tmp = matchsticks[i];
+                matchsticks[i] = 0;
+                if (dfs(matchsticks, target, curr + tmp, i + 1, k)) {
+                    return true;
+                }
+                matchsticks[i] = tmp;
+            }                        
+        }
+        return false;        
+    }
+};

@@ -36,3 +36,21 @@ public:
         return maxLen;
     }
 };
+
+class Solution {
+public:
+    int characterReplacement(string s, int k) {
+        int start = 0, maxCount = 0, maxLen = 0;
+        vector<int> count(26, 0);
+        for (int i = 0; i < s.length(); i++) {
+            count[s[i] - 'A']++;
+            maxCount = max(maxCount, count[s[i] - 'A']);
+            while (i - start + 1 - maxCount > k) {
+                count[s[start] - 'A']--;
+                start++;
+            }
+            maxLen = max(maxLen, i - start + 1);
+        }
+        return maxLen;
+    }
+};
