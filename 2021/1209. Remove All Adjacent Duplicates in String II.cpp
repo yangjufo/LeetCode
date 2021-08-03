@@ -70,3 +70,19 @@ public:
         return s.substr(0, i);
     }
 };
+
+class Solution {
+public:
+    string removeDuplicates(string s, int k) {
+        string res(s);
+        int index = 0;
+        vector<int> count(s.length(), 0);
+        for (int i = 0; i < s.length(); i++) {
+            res[index] = s[i];
+            count[index] = (index > 0 && s[i] == res[index - 1] ? count[index - 1] + 1 : 1);
+            if (count[index] == k) index -= k;
+            index++;
+        }
+        return res.substr(0, index);
+    }
+};

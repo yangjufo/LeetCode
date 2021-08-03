@@ -32,3 +32,22 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    string customSortString(string order, string s) {
+        vector<int> count(26, 0);
+        for (char c : s) {
+            count[c - 'a']++;
+        }
+        string res;
+        for (char c : order) {
+            res += string(count[c - 'a'], c);
+            count[c - 'a'] = 0;
+        }
+        for (int i = 0; i < 26; i++) {
+            res += string(count[i], i + 'a');
+        }
+        return res;
+    }
+};

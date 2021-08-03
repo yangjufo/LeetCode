@@ -37,3 +37,24 @@ public:
         return maxes.front().first;
     }
 };
+
+class Solution {
+public:
+    int maxResult(vector<int>& nums, int k) {
+        vector<int> dp(nums.size(), 0);
+        deque<int> maxQueue;
+        maxQueue.push_front(0);
+        dp[0] = nums[0];
+        for (int i = 1; i < nums.size(); i++) {
+            while (!maxQueue.empty() && maxQueue.front() + k < i) {
+                maxQueue.pop_front();
+            }
+            dp[i] = dp[maxQueue.front()] + nums[i];
+            while (!maxQueue.empty() && dp[maxQueue.back()] <= dp[i]) {
+                maxQueue.pop_back();
+            }
+            maxQueue.push_back(i);
+        }
+        return dp[(int)nums.size() - 1];
+    }
+};

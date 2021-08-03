@@ -82,3 +82,72 @@ public:
         return count;
     }
 };
+
+class TrieNode {
+    int count, index;
+    TrieNode* next[26];    
+public:    
+    TrieNode() {
+        index = -1;
+        count = 0;
+        for (int i = 0; i < 26; i++) {
+            next[i] = NULL;
+        }
+    }
+    
+    TrieNode* get(char c) {
+        if (next[c - 'a'] == NULL) {
+            next[c - 'a'] = new TrieNode();
+        }
+        count++;
+        return next[c - 'a'];
+    }
+    
+    TrieNode** getNext() {
+        return next;
+    }
+    
+    void setIndex(int _index) {
+        index = _index;
+    }
+    
+    int getCount() {
+        return count;
+    }
+    
+    int getIndex() {
+        return index;
+    }
+    
+};
+
+class Solution {
+public:
+    int minimumLengthEncoding(vector<string>& words) {
+        TrieNode* root = new TrieNode();
+        for (int index = 0; index < words.size(); index++) {
+            TrieNode* curr = root;
+            for (int i = (int)words[index].length() - 1; i >= 0; i--) {                
+                curr = curr->get(words[index][i]);
+            }
+            curr->setIndex(index);
+        }
+        int total = 0;
+        queue<TrieNode*> tQueue;
+        tQueue.push(root);
+        while (!tQueue.empty()) {
+            TrieNode* curr = tQueue.front();
+            tQueue.pop();
+            if (curr->getCount() == 0) {
+                total += words[curr->getIndex()].length() + 1;
+            }
+            TrieNode** next = curr->getNext();
+            for (int i = 0; i < 26; i++) {
+                if (next[i] != NULL) {
+                    tQueue.push(next[i]);
+                }
+            }
+        }
+        return total;
+    }
+};

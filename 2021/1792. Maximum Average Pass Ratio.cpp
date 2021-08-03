@@ -46,3 +46,25 @@ public:
         return total / (classes.size());
     }
 };
+
+class Solution {
+public:
+    double maxAverageRatio(vector<vector<int>>& classes, int extraStudents) {
+        auto comparator = [](array<int, 2>& left, array<int, 2>& right) {
+            return (double)(left[0] + 1) / (left[1] + 1) - (double)left[0] / left[1] < (double)(right[0] + 1) / (right[1] + 1) - (double)right[0] / right[1];
+        };
+        priority_queue<array<int, 2>, vector<array<int, 2>>, decltype(comparator)> pq(comparator);
+        double sum = 0;
+        for (vector<int>& c : classes) {
+            sum += (double)c[0] / c[1];
+            pq.push({c[0], c[1]});
+        }        
+        for (int i = 0; i < extraStudents; i++) {
+            auto top = pq.top();
+            pq.pop();
+            sum += (double)(top[0] + 1) / (top[1] + 1) - (double)top[0] / top[1];
+            pq.push({top[0] + 1, top[1] + 1});            
+        }
+        return sum / classes.size();
+    }
+};

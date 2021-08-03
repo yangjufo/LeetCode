@@ -61,3 +61,26 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<int> minDifference(vector<int>& nums, vector<vector<int>>& queries) {
+        vector<vector<int>> count(nums.size() + 1, vector<int>(101));
+        for (int i = 0; i < nums.size(); i++) {            
+            count[i + 1] = count[i];
+            count[i + 1][nums[i]]++;            
+        }
+        vector<int> res;
+        for (vector<int>& q : queries) {
+            int prev = -100, minDiff = 100;
+            for (int i = 1; i <= 100 && minDiff > 0; i++) {
+                if (count[q[1] + 1][i] - count[q[0]][i] > 0) {
+                    minDiff = min(minDiff, abs(i - prev));
+                    prev = i;
+                }                
+            }            
+            res.push_back(minDiff == 100 ? -1 : minDiff);
+        }
+        return res;
+    }
+};

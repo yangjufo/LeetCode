@@ -24,3 +24,32 @@ public:
         return *max_element(prev.begin(), prev.end());
     }
 };
+
+class Solution {
+public:
+    long long maxPoints(vector<vector<int>>& points) {
+        vector<long long> curr;
+        for (int p : points[0]) {
+            curr.push_back(p);
+        }
+        for (int i = 1; i < points.size(); i++) {
+            vector<long long> prev = curr;
+            long long preMax = INT_MIN;
+            for (int j = 0; j < points[0].size(); j++) {
+                preMax = max(preMax, prev[j] + j);
+                curr[j] = preMax - j + points[i][j];
+            }
+            long long postMax = INT_MIN;
+            for (int j = (int)points[0].size() - 1; j >= 0; j--) {
+                postMax = max(postMax, prev[j] - j);
+                curr[j] = max(curr[j], postMax + j + points[i][j]);
+            }            
+            prev = curr;            
+        }
+        long long res = 0;
+        for (int j = 0; j < points[0].size(); j++) {
+            res = max(res, curr[j]);
+        }
+        return res;
+    }
+};

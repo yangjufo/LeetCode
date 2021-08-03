@@ -122,3 +122,43 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        string res;
+        int open = 0, close = 0;
+        for (char c : s) {
+            if (c == ')') {
+                close++;
+            } else if (c == '(') {
+                open++;
+            }
+            if (close > open) {
+                close = open;
+            }
+        }
+        int maxOpen = (open > close ? close : open);
+        open = close = 0;
+        for (char c : s) {            
+            if (c != '(' && c != ')') {
+                res += c;
+            } else {
+                if (c == '(') {
+                    open++;
+                    if (open <= maxOpen) {
+                        res += c;
+                    }
+                } else {
+                    close++;     
+                    if (close > open) {
+                        close = open;
+                    } else if (close <= maxOpen) {
+                        res += c;
+                    }
+                }                 
+            }
+        }
+        return res;
+    }
+};

@@ -58,3 +58,29 @@ public:
         return -1;
     }
 };
+
+class Solution {
+public:
+    int smallestCommonElement(vector<vector<int>>& mat) {
+        vector<int> indexes(mat.size(), 0);
+        for (int i = 0; i < mat[0].size(); i++) {
+            int cand = mat[0][i];
+            int row = 1;
+            for (; row < mat.size(); row++) {
+                while (indexes[row] < mat[row].size() && mat[row][indexes[row]] < cand) {
+                    indexes[row]++;
+                }
+                if (indexes[row] >= mat[row].size()) {
+                    return -1;
+                }
+                if (mat[row][indexes[row]] > cand) {
+                    break;
+                }
+            }
+            if (row >= mat.size()) {
+                return cand;
+            }
+        }
+        return -1;
+    }
+};

@@ -32,3 +32,25 @@ public:
         return true;
     }
 };
+
+class Solution {
+public:
+    int longestBeautifulSubstring(string word) {
+        int maxLen = 0, len = 0, count = 0;
+        for (int i = 0; i < word.length(); i++) {
+            if (i > 0 && word[i - 1] == word[i]) {
+                len++;
+            } else if (i > 0 && word[i - 1] < word[i]) {
+                len++;
+                count++;
+            } else {
+                len = 1;
+                count = 1;
+            }
+            if (count == 5) {
+                maxLen = max(maxLen, len);
+            }            
+        }
+        return maxLen;
+    }
+};

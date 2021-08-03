@@ -39,3 +39,26 @@ public:
         return dp[T] == T + 1 ? -1 : dp[T];
     }
 };
+
+class Solution {
+public:
+    int videoStitching(vector<vector<int>>& clips, int time) {
+        sort(clips.begin(), clips.end(), [](vector<int>& left, vector<int>& right){
+            return left[0] == right[0] ? left[1] > right[1] : left[0] < right[0];
+        });
+        if (clips[0][0] > 0) return -1;
+        int count = 1, currCut = clips[0][1], maxCut = clips[0][1];
+        for (int i = 1; i < clips.size() && currCut < time; i++) {
+            if (clips[i][0] == clips[i - 1][0]) continue;
+            if (clips[i][0] > maxCut) {
+                return -1;
+            }
+            if (clips[i][0] > currCut) {
+                currCut = maxCut;
+                count++;
+            }
+            maxCut = max(maxCut, clips[i][1]);
+        }
+        return maxCut < time ? -1 : (currCut < time ? count + 1 : count);        
+    }
+};

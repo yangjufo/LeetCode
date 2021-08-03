@@ -27,3 +27,27 @@ public:
         return dp[n][0];
     }
 };
+
+class Solution {
+public:
+    int maxSumDivThree(vector<int>& nums) {
+        vector<int> dp = {0, INT_MIN, INT_MIN}, prev = {0, INT_MIN, INT_MIN};
+        for (int n : nums) {
+            if (n % 3 == 0) {
+                dp[0] = prev[0] + n;
+                dp[1] = prev[1] + n;
+                dp[2] = prev[2] + n;
+            } else if (n % 3 == 1) {
+                dp[0] = max(dp[0], prev[2] + n);
+                dp[1] = max(dp[1], prev[0] + n);
+                dp[2] = max(dp[2], prev[1] + n);
+            } else {
+                dp[0] = max(dp[0], prev[1] + n);
+                dp[1] = max(dp[1], prev[2] + n);
+                dp[2] = max(dp[2], prev[0] + n);
+            }
+            prev = dp;
+        }
+        return dp[0];
+    }
+};

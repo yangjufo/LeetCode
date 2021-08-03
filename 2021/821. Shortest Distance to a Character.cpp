@@ -46,3 +46,26 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<int> shortestToChar(string s, char c) {
+        int cIndex = -(int)s.length();
+        vector<int> res(s.length(), s.length());
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == c) {
+                cIndex = i;
+            }
+            res[i] = min(res[i], i - cIndex);
+        }
+        
+        cIndex = s.length() * 2;
+        for (int i = (int)s.length() - 1; i >= 0; i--) {
+            if (s[i] == c) {
+                cIndex = i;
+            }
+            res[i] = min(res[i], cIndex - i);
+        }
+        return res;
+    }
+};

@@ -47,3 +47,23 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    int mctFromLeafValues(vector<int>& arr) {
+        vector<int> nums = {INT_MAX};
+        int cost = 0;
+        for (int n : arr) {
+            while (nums.back() <= n) {
+                int mid = nums.back();
+                nums.pop_back();
+                cost += mid * min(nums.back(), n);
+            }
+            nums.push_back(n);
+        }
+        for (int i = 2; i < nums.size(); i++) {
+            cost += nums[i] * nums[i - 1];
+        } 
+        return cost;
+    }
+};

@@ -9,3 +9,9 @@
 9. BFS -> mark visited when adding neighbors. Otherwise, a cell can be pushed to the queue multiple times
 10. (i & 0x1) == 1
 11. Use `pair` or `array<int, 2>` whenever possible, it has better performance than `vector`
+12. Consider count the number of different characters for string problems, e.g., https://leetcode.com/problems/number-of-matching-subsequences/
+13. When reordering, consider count of digits, e.g., https://leetcode.com/problems/reordered-power-of-2/
+14. Group things, consider sliding window, e.g., https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
+15. Check `iter != a.begin()` before using `prev(iter)`; Check `iter != a.end()` before `*iter`
+16. If the number range is small, consider counting the number, e.g., https://leetcode.com/problems/minimum-absolute-difference-queries/
+17. When dp, try to use a single `pre` instead of traversing all the elements before, e.g., https://leetcode.com/problems/maximum-number-of-points-with-cost/

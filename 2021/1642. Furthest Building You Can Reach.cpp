@@ -18,3 +18,25 @@ public:
         return pos;
     }
 };
+
+class Solution {
+public:
+    int furthestBuilding(vector<int>& heights, int bricks, int ladders) {
+        priority_queue<int> gaps;
+        int i = 1;
+        for (; i < heights.size(); i++) {
+            if (heights[i] > heights[i - 1]) {
+                int diff = heights[i] - heights[i - 1];
+                gaps.push(diff);
+                bricks -= diff;
+                if (bricks < 0) {
+                    if (ladders <= 0) break;
+                    bricks += gaps.top();
+                    gaps.pop();
+                    ladders--;
+                }
+            }
+        }
+        return i - 1;
+    }
+};

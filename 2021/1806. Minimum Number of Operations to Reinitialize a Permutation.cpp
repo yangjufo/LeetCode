@@ -42,3 +42,19 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    int reinitializePermutation(int n) {
+        int count = 0, index = 1;
+        while (count == 0 || index > 1) {
+            if (index < n / 2) {
+                index *= 2;
+            } else {
+                index = (index - n / 2) * 2 + 1;
+            }
+            count++;
+        }
+        return count;
+    }
+};
