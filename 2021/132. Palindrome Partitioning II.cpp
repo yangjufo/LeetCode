@@ -19,3 +19,28 @@ public:
         return cuts[N - 1];
     }               
 };
+
+class Solution {
+public:
+    int minCut(string s) {
+        int n = s.length();
+        vector<vector<bool>> palindromes(n, vector<bool>(n, false));
+        for (int i = n - 1; i >= 0; i--) {
+            for (int j = i; j < n; j++) {
+                if (s[i] == s[j]) {
+                    palindromes[i][j] = (i + 1 < j - 1) ? palindromes[i + 1][j - 1] : true;
+                }
+            }
+        }
+        vector<int> cuts(n, n);
+        for (int i = 0; i < n; i++) {
+            cuts[i] = i;
+            for (int j = 0; j <= i; j++) {
+                if (palindromes[j][i]) {
+                    cuts[i] = j == 0 ? 0 : min(cuts[i], cuts[j - 1] + 1);
+                }
+            }
+        }
+        return cuts[n - 1];
+    }
+};
