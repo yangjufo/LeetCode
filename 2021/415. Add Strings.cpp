@@ -21,3 +21,29 @@ public:
         return sum;
     }
 };
+
+class Solution {
+public:
+    string addStrings(string num1, string num2) {
+        string res;
+        int addOn = 0, i = (int)num1.length() - 1, j = (int)num2.length() - 1;
+        while (i >= 0 || j >= 0) {
+            int sum = addOn;
+            if (i >= 0) {
+                sum += num1[i] - '0';
+                i--;
+            }       
+            if (j >= 0) {
+                sum += num2[j] - '0';
+                j--;
+            }            
+            res += sum % 10 + '0';
+            addOn = sum / 10;            
+        }
+        if (addOn > 0) {
+            res += addOn + '0';
+        }
+        reverse(res.begin(), res.end());
+        return res;
+    }    
+};
