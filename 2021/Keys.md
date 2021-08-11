@@ -16,3 +16,4 @@
 16. If the number range is small, consider counting the number, e.g., https://leetcode.com/problems/minimum-absolute-difference-queries/
 17. When dp, try to use a single `pre` instead of traversing all the elements before, e.g., https://leetcode.com/problems/maximum-number-of-points-with-cost/
 18. Be careful about duplicates for arrays, e.g., https://leetcode.com/problems/heaters/
+19. Record used numbers in each recursion instead of checking the final result, e.g., https://leetcode.com/problems/increasing-subsequences/
