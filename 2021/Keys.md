@@ -17,3 +17,5 @@
 17. When dp, try to use a single `pre` instead of traversing all the elements before, e.g., https://leetcode.com/problems/maximum-number-of-points-with-cost/
 18. Be careful about duplicates for arrays, e.g., https://leetcode.com/problems/heaters/
 19. Record used numbers in each recursion instead of checking the final result, e.g., https://leetcode.com/problems/increasing-subsequences/
+20. Use square to limit the search range, e.g., https://leetcode.com/problems/construct-the-rectangle/submissions/
+21. 
