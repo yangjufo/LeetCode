@@ -18,4 +18,4 @@
 18. Be careful about duplicates for arrays, e.g., https://leetcode.com/problems/heaters/
 19. Record used numbers in each recursion instead of checking the final result, e.g., https://leetcode.com/problems/increasing-subsequences/
 20. Use square to limit the search range, e.g., https://leetcode.com/problems/construct-the-rectangle/submissions/
-21. 
+21. When using `long`, make sure it's everywhere, e.g., https://leetcode.com/problems/minimum-non-zero-product-of-the-array-elements/
