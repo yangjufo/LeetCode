@@ -20,3 +20,4 @@
 20. Use square to limit the search range, e.g., https://leetcode.com/problems/construct-the-rectangle/submissions/
 21. When using `long`, make sure it's everywhere, e.g., https://leetcode.com/problems/minimum-non-zero-product-of-the-array-elements/
 22. Try linked list instead of `std::map` for sorting, e.g., https://leetcode.com/problems/all-oone-data-structure/
+23. Use `(str + str).find(str, 1) != string::npos` to Check repeated substring, e.g., https://leetcode.com/problems/encode-string-with-shortest-length/
