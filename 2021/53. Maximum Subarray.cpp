@@ -51,3 +51,16 @@ public:
         return leftSum + rightSum;        
     }
 };
+
+class Solution {
+public:
+    int maxSubArray(vector<int>& nums) {
+        int maxSum = INT_MIN, sum = 0;        
+        for (int n : nums) {
+            sum += n;
+            maxSum = max(sum, maxSum);
+            sum = max(sum, 0);
+        }
+        return maxSum;
+    }
+};
