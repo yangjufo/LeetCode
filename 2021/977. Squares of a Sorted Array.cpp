@@ -41,3 +41,41 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        vector<int> res(nums.size(), 0);
+        int left = 0, right = (int) nums.size() - 1, index = (int)nums.size() - 1;
+        while (left <= right) {
+            if (nums[left] * nums[left] < nums[right] * nums[right]) {
+                res[index] = nums[right] * nums[right];
+                right--;
+            } else {
+                res[index] = nums[left] * nums[left];
+                left++;
+            }
+            index--;
+        }
+        return res;
+    }
+};
+
+class Solution {
+public:
+    vector<int> sortedSquares(vector<int>& nums) {
+        vector<int> res(nums.size(), 0);
+        int left = 0, right = (int) nums.size() - 1, index = (int)nums.size() - 1;
+        while (left <= right) {
+            if (abs(nums[left]) < abs(nums[right])) {
+                res[index] = nums[right] * nums[right];
+                right--;
+            } else {
+                res[index] = nums[left] * nums[left];
+                left++;
+            }
+            index--;
+        }
+        return res;
+    }
+};
