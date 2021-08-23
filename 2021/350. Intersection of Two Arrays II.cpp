@@ -19,3 +19,25 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<int> intersect(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int, int> count1, count2;
+        for (int n : nums1) {
+            count1[n]++;
+        }
+        for (int n : nums2) {
+            count2[n]++;
+        }
+        vector<int> res;
+        for (auto& iter : count1) {
+            if (count2.find(iter.first) != count2.end()) {
+                for (int i = 0; i < min(iter.second, count2[iter.first]); i++) {
+                    res.push_back(iter.first);
+                }
+            }
+        }
+        return res;
+    }
+};

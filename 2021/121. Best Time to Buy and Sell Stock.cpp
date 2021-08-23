@@ -24,3 +24,18 @@ public:
         return maxProfit;
     }
 };
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int buy = INT_MAX, profit = 0;
+        for (int n : prices) {
+            if (n < buy) {
+                buy = n;
+            } else {
+                profit = max(n - buy, profit);
+            }
+        }
+        return profit;
+    }
+};

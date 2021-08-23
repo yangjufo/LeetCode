@@ -17,3 +17,24 @@ public:
         return curr;
     }
 };
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        if (nums.size() == 1) return nums[0];
+        int prev11 = 0, prev12 = 0, prev21 = 0, prev22 = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (i + 1 < nums.size()) {
+                int curr1 = max(prev11, prev12 + nums[i]);
+                prev12 = prev11;
+                prev11 = curr1;
+            }
+            if (i != 0) {
+                int curr2 = max(prev21, prev22 + nums[i]);
+                prev22 = prev21;
+                prev21 = curr2;
+            }
+        }
+        return max(prev11, prev21);
+    }
+};
