@@ -30,3 +30,18 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<vector<int>> generate(int numRows) {
+        vector<vector<int>> res = {{1}};
+        for (int i = 2; i <= numRows; i++) {
+            res.push_back(res.back());            
+            res.back().push_back(1);              
+            for (int j = i - 2; j >= 1; j--) {
+                res.back()[j] += res.back()[j - 1];
+            }
+        }
+        return res;
+    }
+};

@@ -10,3 +10,14 @@ public:
     }
 };
 
+
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int maxPos = 0;
+        for (int i = 0; i < nums.size() && maxPos >= i; i++) {
+            maxPos = max(nums[i] + i, maxPos);
+        }
+        return maxPos + 1 >=  nums.size();
+    }
+};

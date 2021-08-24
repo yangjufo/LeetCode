@@ -58,3 +58,19 @@ public:
         return steps;
     }
 };
+
+
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int step = 0, maxPos = 0, currPos = 0;
+        for (int i = 0; i < nums.size() && currPos + 1 < nums.size(); i++) {
+            if (i > currPos) {
+                currPos = maxPos;
+                step++;
+            }
+            maxPos = max(maxPos, nums[i] + i);
+        }
+        return step;
+    }
+};
