@@ -22,3 +22,4 @@
 22. Try linked list instead of `std::map` for sorting, e.g., https://leetcode.com/problems/all-oone-data-structure/
 23. Use `(str + str).find(str, 1) != string::npos` to Check repeated substring, e.g., https://leetcode.com/problems/encode-string-with-shortest-length/
 24. Set `right = nums.size()` to avoid final `left` checking when binary search, e.g., https://leetcode.com/problems/search-insert-position/
+25. Try thinking reversely like `maxSum = total - minSum`, e.g., https://leetcode.com/problems/maximum-sum-circular-subarray/
