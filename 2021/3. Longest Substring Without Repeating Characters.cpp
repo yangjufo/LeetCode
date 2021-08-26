@@ -30,3 +30,20 @@ public:
         return maxLen;
     }
 };
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        unordered_map<char, int> sCount;
+        int start = 0, maxLen = 0;
+        for (int i = 0; i < s.length(); i++) {
+            sCount[s[i]]++;
+            while (sCount[s[i]] > 1) {
+                sCount[s[start]]--;
+                start++;
+            }
+            maxLen = max(maxLen, i - start + 1);
+        }
+        return maxLen;
+    }
+};

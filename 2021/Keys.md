@@ -23,3 +23,4 @@
 23. Use `(str + str).find(str, 1) != string::npos` to Check repeated substring, e.g., https://leetcode.com/problems/encode-string-with-shortest-length/
 24. Set `right = nums.size()` to avoid final `left` checking when binary search, e.g., https://leetcode.com/problems/search-insert-position/
 25. Try thinking reversely like `maxSum = total - minSum`, e.g., https://leetcode.com/problems/maximum-sum-circular-subarray/
+26. Be careful about the corner case that the new value is the same as the old value, e.g., https://leetcode.com/problems/flood-fill/

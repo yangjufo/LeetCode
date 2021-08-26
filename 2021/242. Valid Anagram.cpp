@@ -45,3 +45,21 @@ public:
         return true;
     }
 };
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        if (s.length() != t.length()) return false;
+        unordered_map<int, int> sCount;
+        for (char c : s) {
+            sCount[c]++;
+        }
+        for (char c : t) {
+            sCount[c]--;
+            if (sCount[c] < 0) {
+                return false;
+            }
+        }
+        return true;
+    }
+};

@@ -24,3 +24,17 @@ public:
         return false;
     }
 };
+
+class Solution {
+public:
+    bool judgeSquareSum(int c) {
+        unordered_set<long> nums;
+        for (long i = 0; i <= (int)sqrt(c); i++) {
+            if (nums.find(c - i * i) != nums.end() || c == i * i * 2) {
+                return true;
+            }
+            nums.insert(i * i);
+        }
+        return false;
+    }
+};
