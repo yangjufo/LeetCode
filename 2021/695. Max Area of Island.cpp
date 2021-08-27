@@ -57,3 +57,33 @@ public:
         return area;
     }
 };
+
+class Solution {
+public:
+    int directions[4][2] = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+    int maxAreaOfIsland(vector<vector<int>>& grid) {
+        int maxArea = 0;
+        for (int i = 0; i < grid.size(); i++) {
+            for (int j = 0; j < grid[0].size(); j++) {
+                if (grid[i][j] == 1) {
+                    grid[i][j] = 0;
+                    maxArea = max(maxArea, dfs(grid, i, j));
+                }
+            }
+        }
+        return maxArea;
+    }
+    
+    int dfs(vector<vector<int>>& grid, int row, int col) {
+        int curr = 1;
+        for (int i = 0; i < 4; i++) {
+            int newRow = row + directions[i][0], newCol = col + directions[i][1];
+            if (newRow < 0 || newRow >= grid.size() || newCol < 0 || newCol >= grid[0].size() || grid[newRow][newCol] == 0) {
+                continue;
+            }
+            grid[newRow][newCol] = 0;
+            curr += dfs(grid, newRow, newCol);
+        }
+        return curr;
+    }
+};
