@@ -28,3 +28,28 @@ public:
         return intervals[left][1] > startTime ? left - 1 : left;
     }
 };
+
+class Solution {
+public:
+    int jobScheduling(vector<int>& startTime, vector<int>& endTime, vector<int>& profit) {
+        vector<array<int, 3>> times;
+        for (int i = 0; i < startTime.size(); i++) {
+            times.push_back({startTime[i], endTime[i], profit[i]});
+        }
+        sort(times.begin(), times.end(), [](auto& left, auto& right) {
+            return left[1] == right[1] ? left[0] < right[0] : left[1] < right[1];
+        });
+        
+        vector<int> dp(times.back()[1] + 1);
+        int index = 0;
+        
+        for (int i = 1; i < dp.size(); i++) {            
+            dp[i] = dp[i - 1];
+            while (index < times.size() && i == times[index][1]) {
+                dp[i] = max(dp[i], dp[times[index][0]] + times[index][2]);
+                index++;
+            }
+        }
+        return dp.back();
+    }
+};
