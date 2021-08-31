@@ -19,3 +19,27 @@ public:
         }
     }
 };
+
+class Solution {
+public:
+    vector<vector<int>> combine(int n, int k) {
+        vector<int> curr;
+        vector<vector<int>> res;
+        backtrack(n, 1, k, curr, res);
+        return res;
+    }
+    
+    void backtrack(int n, int index, int k, vector<int>& curr, vector<vector<int>>& res) {
+        if (curr.size() >= k) {
+            res.push_back(curr);
+            return;
+        }            
+        
+        for (int i = index; i <= n; i++) {
+            curr.push_back(i);
+            backtrack(n, i + 1, k, curr, res);
+            curr.pop_back();
+        }
+        
+    }
+};

@@ -55,3 +55,19 @@ public:
         return dp[n - 1];
     }
 };
+
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int> dp(n, 0);
+        int index2 = 0, index3 = 0, index5 = 0;
+        dp[0] = 1;
+        for (int i = 1; i < n; i++) {
+            dp[i] = min(dp[index2] * 2, min(dp[index3] * 3, dp[index5] * 5));
+            if (dp[i] == dp[index2] * 2) index2++;
+            if (dp[i] == dp[index3] * 3) index3++;
+            if (dp[i] == dp[index5] * 5) index5++;
+        }
+        return dp[n - 1];
+    }
+};

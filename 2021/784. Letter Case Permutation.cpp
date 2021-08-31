@@ -20,3 +20,27 @@ public:
         return curr;        
     }
 };
+
+class Solution {
+public:
+    vector<string> letterCasePermutation(string s) {
+        vector<string> res;
+        backtrack(s, 0, res);
+        return res;
+    }
+    
+    void backtrack(string& s, int index, vector<string>& res) {
+        if (index >= s.length()) {
+            res.push_back(s);
+            return;
+        }        
+        backtrack(s, index + 1, res);
+        if (s[index] >= 'a' && s[index] <= 'z') {            
+            s[index] = s[index] - 'a' + 'A';
+            backtrack(s, index + 1, res);
+        } else if (s[index] >= 'A' && s[index] <= 'Z') {
+            s[index] = s[index] - 'A' + 'a';
+            backtrack(s, index + 1, res);
+        }
+    }
+};

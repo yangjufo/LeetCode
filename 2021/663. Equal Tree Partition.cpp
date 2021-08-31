@@ -33,3 +33,32 @@ public:
         return curr;
     }
 };
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    bool checkEqualTree(TreeNode* root) {
+        unordered_set<int> seen;
+        int total = sum(root, root, seen);
+        return total % 2 == 0 && seen.find(total / 2) != seen.end();
+    }
+    
+    int sum(TreeNode* oldRoot, TreeNode* root, unordered_set<int>& seen) {
+        if (root == NULL) return 0;
+        int curr = root->val + sum(oldRoot, root->left, seen) + sum(oldRoot, root->right, seen);
+        if (root != oldRoot) {
+            seen.insert(curr);
+        }                
+        return curr;
+    }
+};
