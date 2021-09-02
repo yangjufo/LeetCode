@@ -17,3 +17,24 @@ public:
         return minPath;
     }
 };
+
+class Solution {
+public:
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        vector<int> dp = matrix[0];
+        for (int i = 1; i < matrix.size(); i++) {
+            vector<int> next = dp;
+            for (int j = 0; j < matrix[0].size(); j++) {
+                next[j] = dp[j] + matrix[i][j];
+                if (j > 0) {
+                    next[j] = min(next[j], dp[j - 1] + matrix[i][j]);
+                }
+                if (j + 1 < matrix[0].size()) {
+                    next[j] = min(next[j], dp[j + 1] + matrix[i][j]);
+                }
+            }
+            dp = next;
+        }
+        return *min_element(dp.begin(), dp.end());
+    }
+};

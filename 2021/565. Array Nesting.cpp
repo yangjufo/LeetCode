@@ -48,3 +48,24 @@ public:
         return maxLen;
     }
 };
+
+class Solution {
+public:
+    int arrayNesting(vector<int>& nums) {
+        vector<bool> visited(nums.size(), false);
+        int maxLen = 1;
+        for (int n : nums) {
+            if (visited[n]) {
+                continue;
+            }
+            int count = 0;
+            while (!visited[n]) {
+                count++;
+                visited[n] = true;
+                n = nums[n];
+            }            
+            maxLen = max(maxLen, count);
+        }
+        return maxLen;
+    }
+};
