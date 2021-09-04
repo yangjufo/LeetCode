@@ -28,3 +28,43 @@ public:
         }
     }
 };
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> res;
+        for (int i = 0; i < nums.size(); i++) {
+            if (i != 0 && nums[i] == nums[i - 1]) continue;
+            vector<vector<int>> two = twoSum(nums, -nums[i], i + 1);
+            for (vector<int>& t : two) {
+                t.push_back(nums[i]);
+                res.push_back(t);
+            }            
+        }
+        return res;
+    }
+    
+    vector<vector<int>> twoSum(vector<int>& nums, int target, int left) {
+        int right = (int)nums.size() - 1;
+        vector<vector<int>> res;
+        while (left < right) {
+            if (nums[left] + nums[right] == target) {
+                res.push_back({nums[left], nums[right]});
+                while (left > 0 && left < right && nums[left + 1] == nums[left]) {
+                    left++;
+                }
+                while (right > left && right < (int)nums.size() && nums[right] == nums[right - 1]) {
+                    right--;
+                }
+                left++;
+                right--;
+            } else if (nums[left] + nums[right] < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return res;
+    }
+};

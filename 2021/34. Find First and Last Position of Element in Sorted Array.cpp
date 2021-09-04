@@ -101,3 +101,31 @@ public:
         return {(int)(left - nums.begin()), (int)(upper_bound(nums.begin(), nums.end(), target) - nums.begin() - 1)};        
     }
 };
+
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int startPos = -1, left = 0, right = (int)nums.size() - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] < target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        if (left >= nums.size() || nums[left] != target) return {-1, -1};
+        startPos = left;
+        left = 0, right = (int)nums.size() - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (nums[mid] <= target) {
+                left = mid + 1;
+            } else {
+                right = mid;
+            }
+        }
+        int endPos = nums[left] == target ? left : left - 1;
+        return {startPos, endPos};
+    }
+};
