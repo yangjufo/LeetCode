@@ -182,3 +182,62 @@ public:
  * int param_2 = obj->get(key);
  * obj->remove(key);
  */
+
+ class MyHashMap {
+public:
+    int size = 1234;
+    vector<vector<pair<int, int>>> nums;
+    /** Initialize your data structure here. */
+    MyHashMap() {
+        nums.resize(size);
+    }
+    
+    /** value will always be non-negative. */
+    void put(int key, int value) {
+        int index = key % size;
+        int pos = nums[index].size();
+        for (int i = 0; i < nums[index].size(); i++) {
+            if (nums[index][i].first == key) {
+                nums[index][i].second = value;
+                return;
+            } else if (nums[index][i].first == -1) {
+                pos = i;
+            }
+        }
+        if (pos >= nums[index].size()) {
+            nums[index].push_back({key, value});
+        } else {
+            nums[index][pos] = {key, value};            
+        }
+    }
+    
+    /** Returns the value to which the specified key is mapped, or -1 if this map contains no mapping for the key */
+    int get(int key) {
+        int index = key % size;
+        for (int i = 0; i < nums[index].size(); i++) {
+            if (nums[index][i].first == key) {
+                return nums[index][i].second;
+            }
+        }
+        return -1;
+    }
+    
+    /** Removes the mapping of the specified value key if this map contains a mapping for the key */
+    void remove(int key) {
+        int index = key % size;        
+        for (int i = 0; i < nums[index].size(); i++) {
+            if (nums[index][i].first == key) {
+                nums[index][i] = {-1, -1};
+                return;
+            }
+        }        
+    }
+};
+
+/**
+ * Your MyHashMap object will be instantiated and called as such:
+ * MyHashMap* obj = new MyHashMap();
+ * obj->put(key,value);
+ * int param_2 = obj->get(key);
+ * obj->remove(key);
+ */
