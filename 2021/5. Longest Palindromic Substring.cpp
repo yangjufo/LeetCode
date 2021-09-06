@@ -81,3 +81,23 @@ public:
         return left;
     }
 };
+
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        vector<vector<bool>> dp(s.length(), vector<bool>(s.length(), false));
+        int maxStart = 0, maxLen = 0;
+        for (int i = (int)s.length() - 1; i >= 0; i--) {
+            for (int j = i; j < (int)s.length(); j++) {
+                if (s[i] == s[j]) {
+                    dp[i][j] = (i + 1 < j - 1) ? dp[i + 1][j - 1] : true;
+                }                
+                if (dp[i][j] && j - i + 1 > maxLen) {
+                    maxStart = i;
+                    maxLen = j - i + 1;
+                }
+            }            
+        }
+        return s.substr(maxStart, maxLen);
+    }
+};
