@@ -18,3 +18,21 @@ public:
         return count;
     }
 };
+
+class Solution {
+public:
+    int eraseOverlapIntervals(vector<vector<int>>& intervals) {
+        sort(intervals.begin(), intervals.end(), [](auto& left, auto& right){
+            return left[1] == right[1] ? left[0] < right[0] : left[1] < right[1];
+        });        
+        int index = 0, count = 0;        
+        for (int i = 1; i < intervals.size(); i++) {            
+            if (intervals[i][0] < intervals[index][1]) {
+                count++;
+            } else {
+                index = i;
+            }
+        }
+        return count;
+    }
+};
