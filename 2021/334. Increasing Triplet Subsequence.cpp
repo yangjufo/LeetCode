@@ -14,3 +14,16 @@ public:
         return false;
     }
 };
+
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int prev1 = INT_MAX, prev2 = INT_MAX;
+        for (int n : nums) {
+            if (n > prev2) return true;
+            if (n < prev1) prev1 = n;
+            else if (n > prev1 && n < prev2) prev2 = n;
+        }
+        return false;
+    }
+};

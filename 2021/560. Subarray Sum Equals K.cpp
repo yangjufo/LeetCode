@@ -28,3 +28,18 @@ public:
         return count;
     }
 };
+
+
+class Solution {
+public:
+    int subarraySum(vector<int>& nums, int k) {
+        unordered_map<int, int> sums = {{0, 1}};
+        int sum = 0, count = 0;
+        for (int n : nums) {
+            sum += n;
+            count += sums[sum - k];
+            sums[sum]++;
+        }
+        return count;
+    }
+};
