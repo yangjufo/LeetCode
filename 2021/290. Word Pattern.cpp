@@ -17,3 +17,23 @@ public:
         return start >= s.length();
     }
 };
+
+class Solution {
+public:
+    bool wordPattern(string pattern, string s) {
+        unordered_map<char, int> pMap;
+        unordered_map<string, int> sMap;
+        int start = 0, i = 0;
+        for (; i < pattern.length() && start < (int)s.length(); i++) {                             
+            int next = min(s.find(" ", start), s.length());
+            string word = s.substr(start, next - start);
+            if (pMap[pattern[i]] != sMap[word]) {
+                return false;
+            }
+            pMap[pattern[i]] = i + 1;
+            sMap[word] = i + 1;
+            start = next + 1;
+        }                
+        return i >= pattern.length() && start >= s.length();
+    }
+};
