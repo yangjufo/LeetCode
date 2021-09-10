@@ -88,3 +88,50 @@ public:
         }
     }
 };
+
+class Solution {
+public:
+    int directions[4][2] = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+    void solve(vector<vector<char>>& board) {
+        for (int i = 0; i < board.size(); i++) {
+            if (board[i][0] == 'O') {
+                board[i][0] = 'Y';
+                dfs(board, i, 0);
+            }            
+            if (board[i][board[0].size() - 1] == 'O') {
+                board[i][board[0].size() - 1] = 'Y';
+                dfs(board, i, board[0].size() - 1);
+            }
+        }
+        for (int j = 0; j < board[0].size(); j++) {
+            if (board[0][j] == 'O') {
+                board[0][j] = 'Y';
+                dfs(board, 0, j);
+            }
+            if (board[board.size() - 1][j] == 'O') {
+                board[board.size() - 1][j] = 'Y';
+                dfs(board, board.size() - 1, j);
+            }
+        }        
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = 0; j < board[0].size(); j++) {
+                if (board[i][j] == 'Y') {
+                    board[i][j] = 'O';
+                } else if (board[i][j] == 'O') {
+                    board[i][j] = 'X';
+                }
+            }
+        }        
+    }
+    
+    void dfs(vector<vector<char>>& board, int row, int col) {  
+        for (int i = 0; i < 4; i++) {
+            int newRow = row + directions[i][0], newCol = col + directions[i][1];
+            if (newRow < 0 || newRow >= board.size() || newCol < 0 || newCol >= board[0].size() || board[newRow][newCol] != 'O') {
+                continue;
+            }
+            board[newRow][newCol] = 'Y';
+            dfs(board, newRow, newCol);
+        }
+    }
+};

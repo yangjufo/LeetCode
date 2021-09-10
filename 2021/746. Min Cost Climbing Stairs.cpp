@@ -23,3 +23,16 @@ public:
         return min(prev2, prev1);
     }
 };
+
+class Solution {
+public:
+    int minCostClimbingStairs(vector<int>& cost) {
+        int prev2 = 0, prev1 = 0;
+        for (int c : cost) {
+            int curr = min(prev2, prev1) + c;
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return min(prev2, prev1);
+    }
+};
