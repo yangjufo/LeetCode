@@ -88,3 +88,43 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<string> findRepeatedDnaSequences(string s) {
+        unordered_map<int, int> count;
+        unordered_map<char, int> dna = {
+            {'A', 0},
+            {'C', 1},
+            {'G', 2},
+            {'T', 3}
+        };
+        unordered_map<int, char> num = {
+            {0, 'A'},
+            {1, 'C'},
+            {2, 'G'},
+            {3, 'T'}
+        };
+        int seq = 0;
+        for (int i = 0; i < s.length(); i++) {
+            seq = (seq << 2) + dna[s[i]];
+            if (i >= 9) {
+                count[seq]++;
+                seq &= ~(1 << 18);
+                seq &= ~(1 << 19);
+            }            
+        }
+        vector<string> res;
+        for (auto& iter : count) {
+            if (iter.second > 1) {
+                string one;
+                for (int i = 19; i > 0; i -= 2) {
+                    int bits = (((iter.first >> i) & 1) << 1) + ((iter.first >> (i - 1)) & 1);
+                    one += num[bits];
+                }
+                res.push_back(one);
+            }
+        }
+        return res;
+    }
+};

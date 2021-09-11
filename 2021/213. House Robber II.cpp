@@ -38,3 +38,23 @@ public:
         return max(prev11, prev21);
     }
 };
+
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int prev2 = 0, prev1 = 0, res = nums[0];
+        for (int i = 1; i < nums.size(); i++) {
+            int curr = max(prev2 + nums[i], prev1);
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        res = max(res, prev1);
+        prev2 = prev1 = 0;
+        for (int i = 0; i + 1 < nums.size(); i++) {
+            int curr = max(prev2 + nums[i], prev1);
+            prev2 = prev1;
+            prev1 = curr;
+        }
+        return max(res, prev1);
+    }
+};
