@@ -26,3 +26,19 @@ public:
         return min(min(dp[n - 1][0], dp[n - 1][1]), dp[n - 1][2]);
     }
 };
+
+class Solution {
+public:
+    int minCost(vector<vector<int>>& costs) {
+        int prev[3] = {0}, curr[3] = {0};
+        for (int i = 0; i < costs.size(); i++) {
+            curr[0] = min(prev[1], prev[2]) + costs[i][0];
+            curr[1] = min(prev[0], prev[2]) + costs[i][1];
+            curr[2] = min(prev[0], prev[1]) + costs[i][2];
+            for (int j = 0; j < 3; j++) {
+                prev[j] = curr[j];
+            }
+        }
+        return min(prev[0], min(prev[1], prev[2]));
+    }
+};

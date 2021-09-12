@@ -53,3 +53,26 @@ public:
         }
     }
 };
+
+class Solution {
+public:
+    vector<vector<int>> permuteUnique(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        vector<vector<int>> res;
+        backtrack(nums, 0, res);
+        return res;
+    }
+    
+    void backtrack(vector<int> nums, int index, vector<vector<int>> &res) {
+        if (index >= nums.size()) {
+            res.push_back(nums);
+        }
+        for (int i = index; i < nums.size(); i++) {
+            if (i != index && nums[i] == nums[index]) {
+                continue;
+            }
+            swap(nums[index], nums[i]);
+            backtrack(nums, index + 1, res);
+        }
+    }    
+};
