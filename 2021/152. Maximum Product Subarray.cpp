@@ -34,3 +34,25 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    int maxProduct(vector<int>& nums) {
+        int maxP = 1, minP = 1, res = nums[0];
+        for (int n : nums) {
+            if (n < 0) {
+                swap(maxP, minP);
+            }
+            maxP = max(n, maxP * n);
+            minP = min(n, minP * n);
+            res = max(maxP, res);
+            if (maxP == 0) {
+                maxP = 1;
+            }
+            if (minP == 0) {
+                minP = 1;
+            }
+        }
+        return res;
+    }    
+};

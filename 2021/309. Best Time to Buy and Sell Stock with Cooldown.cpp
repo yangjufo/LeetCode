@@ -83,3 +83,23 @@ public:
         return max(s1[n - 1], s3[n - 1]);
     }
 };
+
+class Solution {
+public:
+    int maxProfit(vector<int>& prices) {
+        int n = prices.size();
+        // s1 => buy => s2
+        // s2 => sell => s3
+        // s1 => reset =>s1
+        // s2 => reset => s2
+        // s3 => reset => s1
+        int p1 = 0, p2 = INT_MIN, p3 = INT_MIN;
+        for (int p : prices) {
+            int s1 = max(p1, p3), s2 = max(p1 - p, p2), s3 = p2 + p;
+            p1 = s1;
+            p2 = s2;
+            p3 = s3;
+        }
+        return max(p1, p3);
+    }
+};

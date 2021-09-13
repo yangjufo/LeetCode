@@ -68,3 +68,25 @@ public:
         }       
     }
 };
+
+class Solution {
+public:
+    vector<string> generateParenthesis(int n) {
+        vector<string> res;
+        backtrack(0, 0, n, "", res);
+        return res;
+    }
+    
+    void backtrack(int openCount, int closeCount, int n, string curr, vector<string>& res) {
+        if (openCount == n && closeCount == n) {
+            res.push_back(curr);
+            return;
+        }   
+        if (openCount < n) {
+            backtrack(openCount + 1, closeCount, n, curr + "(", res);
+        }
+        if (openCount > closeCount) {
+            backtrack(openCount, closeCount + 1, n, curr + ")", res);
+        }
+    }
+};

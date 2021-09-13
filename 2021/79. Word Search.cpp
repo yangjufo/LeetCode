@@ -106,3 +106,40 @@ public:
         return false;
     }
 };
+
+class Solution {
+public:
+    int directions[4][2] = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+    bool exist(vector<vector<char>>& board, string word) {
+        for (int i = 0; i < board.size(); i++) {
+            for (int j = 0; j < board[0].size(); j++) {
+                if (backtrack(board, word, 0, i, j)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    
+    bool backtrack(vector<vector<char>>& board, string& word, int index, int row, int col) {
+        if (index >= word.length()) {
+            return true;
+        }
+        if (board[row][col] != word[index]) {
+            return false;
+        }        
+        int tmp = board[row][col];
+        board[row][col] = '#';
+        for (int i = 0; i < 4; i++) {
+            int newRow = row + directions[i][0], newCol = col + directions[i][1];
+            if (newRow < 0 || newRow >= board.size() || newCol < 0 || newCol >= board[0].size()) {
+                continue;                
+            }
+            if (backtrack(board, word, index + 1, newRow, newCol)){
+                return true;
+            }
+        }
+        board[row][col] = tmp;
+        return index + 1 >= word.length();
+    }
+};
