@@ -32,3 +32,18 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    int wiggleMaxLength(vector<int>& nums) {
+        int neg = 1, pos = 1;
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums[i] > nums[i - 1]) {
+                pos = max(pos, neg + 1);
+            } else if (nums[i] < nums[i - 1]) {
+                neg = max(neg, pos + 1);
+            }
+        }
+        return max(neg, pos);
+    }
+};

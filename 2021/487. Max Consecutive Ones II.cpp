@@ -17,3 +17,18 @@ public:
         return maxLen;
     }
 };
+
+class Solution {
+public:
+    int findMaxConsecutiveOnes(vector<int>& nums) {
+        int prev2 = -1, prev1 = -1, maxLen = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (nums[i] == 0) {
+                prev2 = prev1;
+                prev1 = i;
+            }
+            maxLen = max(maxLen, i - prev2);
+        }
+        return maxLen;
+    }
+};

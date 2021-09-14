@@ -103,3 +103,41 @@ public:
         return dummy->next;
     }
 };
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+        ListNode* dummy = new ListNode(), *prev = dummy, *headPrev = dummy;        
+        dummy->next = head;
+        int curr = 101, count = 0;
+        while (head != NULL) {
+            if (head->val == curr) {
+                count++;
+            } else {                
+                if (count > 1) {
+                    prev->next = head;
+                } else {
+                    prev = headPrev;
+                }
+                curr = head->val;
+                count = 1;
+            }
+            headPrev = head;
+            head = head->next;
+        }
+        if (count > 1) {
+            prev->next = head;
+        }
+        return dummy->next;
+    }
+};

@@ -21,3 +21,15 @@ public:
         return maxPos + 1 >=  nums.size();
     }
 };
+
+
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+        int currMax = 0;
+        for (int i = 0; i < nums.size() && i <= currMax && currMax < nums.size(); i++) {
+            currMax = max(currMax, nums[i] + i);
+        }
+        return currMax + 1 >= nums.size();
+    }
+};
