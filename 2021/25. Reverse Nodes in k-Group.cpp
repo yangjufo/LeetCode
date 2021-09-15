@@ -85,3 +85,40 @@ public:
         return prev;
     }
 };
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode* dummy = new ListNode(), *curr = head, *allPrev = dummy;
+        dummy->next = head;
+        int count = 0;
+        while (curr != NULL) {
+            count++;
+            ListNode* next = curr->next;
+            if (count % k == 0) {
+                ListNode* prev = NULL, *tail = head;
+                while (head != next) {
+                    ListNode* tmp = head->next;
+                    head->next = prev;
+                    prev = head;
+                    head = tmp;
+                }   
+                allPrev->next = prev;
+                allPrev = tail;
+            }
+            curr = next;
+        }
+        allPrev->next = head;
+        return dummy->next;
+    }
+};

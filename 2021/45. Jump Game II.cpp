@@ -74,3 +74,18 @@ public:
         return step;
     }
 };
+
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int currMax = -1, nextMax = 0, count = -1;
+        for (int i = 0; i < nums.size() && currMax + 1 < nums.size(); i++) {
+            if (i > currMax) {
+                count++;
+                currMax = nextMax;
+            }
+            nextMax = max(nextMax, i + nums[i]);
+        }
+        return count;
+    }
+};
