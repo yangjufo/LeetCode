@@ -31,3 +31,19 @@ public:
         return total + (1 + count - 2) * (count - 2) / 2;
     }
 };
+
+class Solution {
+public:
+    int numberOfArithmeticSlices(vector<int>& nums) {
+        int maxLen = 0, count = 0, prev = 0;
+        for (int i = 2; i < nums.size(); i++) {
+            if (nums[i] - nums[i - 1] == nums[i - 1] - nums[i - 2]) {
+                count += prev + 1;
+                prev += 1;
+            } else {
+                prev = 0;
+            }
+        }
+        return count;
+    }
+};

@@ -162,3 +162,40 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    string minRemoveToMakeValid(string s) {
+        int openCount = 0, closeCount = 0;
+        for (char c : s) {
+            if (c == '(') {
+                openCount++;
+            } else if (c == ')') {
+                closeCount++;
+            }
+            if (closeCount > openCount) {
+                closeCount = openCount;
+            }
+        }
+        int openAllowed = closeCount;
+        openCount = 0, closeCount = 0;
+        string res;
+        for (char c : s) {
+            if (c == '(') {
+                if (openAllowed > 0) {
+                    res += c;
+                    openAllowed--;
+                    openCount++;
+                }                
+            } else if (c == ')'){
+                if (closeCount < openCount) {
+                    res += c;
+                    closeCount++;
+                }
+            } else {
+                res += c;
+            }
+        }
+        return res;
+    }
+};
