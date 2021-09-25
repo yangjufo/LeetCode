@@ -27,3 +27,31 @@ public:
         return mem[row][col];
     }
 };
+
+class Solution {
+public:
+    int directions[4][2] = {{0, 1}, {0, -1}, {-1, 0}, {1, 0}};
+    int longestIncreasingPath(vector<vector<int>>& matrix) {
+        vector<vector<int>> dp(matrix.size(), vector<int>(matrix[0].size()));
+        int res = 0;
+        for (int i = 0; i < matrix.size(); i++) {
+            for (int j = 0; j < matrix[0].size(); j++) {
+                res = max(res, dfs(matrix, i, j, dp));
+            }
+        }
+        return res;
+    }
+    
+    int dfs(vector<vector<int>>& matrix, int row, int col, vector<vector<int>>& dp) {
+        if (dp[row][col] > 0) return dp[row][col];
+        dp[row][col] = 1;
+        for (int i = 0; i < 4; i++) {
+            int newRow = row + directions[i][0], newCol = col + directions[i][1];
+            if (newRow < 0 || newRow >= matrix.size() || newCol < 0 || newCol >= matrix[0].size() || matrix[newRow][newCol] <= matrix[row][col]) {
+                continue;
+            }
+            dp[row][col] = max(dp[row][col], dfs(matrix, newRow, newCol, dp) + 1);
+        }
+        return dp[row][col];
+    }
+};

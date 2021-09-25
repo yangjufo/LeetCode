@@ -46,3 +46,36 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<int> shortestDistanceColor(vector<int>& colors, vector<vector<int>>& queries) {
+        int n = colors.size();
+        vector<vector<int>> dis(n, vector<int>(4, -n));        
+        for (int i = 0; i < n; i++) {
+            for (int c = 1; c <= 3; c++) {
+                if (colors[i] == c) {
+                    dis[i][c] = i;
+                } else if (i > 0) {
+                    dis[i][c] = dis[i - 1][c];
+                }
+            }
+        }
+        for (int i = n - 2; i >= 0; i--) {
+            for (int c = 1; c <= 3; c++) {
+                if (i - dis[i][c] > dis[i + 1][c] - i) {
+                    dis[i][c] = dis[i + 1][c];
+                } 
+            }
+        }
+        vector<int> res;
+        for (int i = 0; i < queries.size(); i++) {
+            if (dis[queries[i][0]][queries[i][1]] < 0) {
+                res.push_back(-1);
+            } else {
+                res.push_back(abs(queries[i][0] - dis[queries[i][0]][queries[i][1]]));
+            }
+        }
+        return res;
+    }
+};

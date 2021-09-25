@@ -36,3 +36,24 @@ public:
         return count;
     }
 };
+
+class Solution {
+public:
+    int countSubstrings(string s) {
+        int n = s.length(), count = 0;
+        vector<vector<bool>> dp(n, vector<bool>(n, false));
+        for (int i = s.length() - 1; i >= 0; i--) {
+            for (int j = i; j < s.length(); j++) {
+                if (s[i] == s[j]) {
+                    if (i + 1 < j - 1) {
+                        dp[i][j] = dp[i + 1][j - 1];                        
+                    } else {
+                        dp[i][j] = true;
+                    }
+                    count += dp[i][j] ? 1 : 0;
+                }
+            }
+        }
+        return count;
+    }
+};

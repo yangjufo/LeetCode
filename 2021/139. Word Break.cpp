@@ -82,3 +82,20 @@ public:
         return dp[s.length()];
     }
 };
+
+class Solution {
+public:
+    bool wordBreak(string s, vector<string>& wordDict) {
+        unordered_set<string> wordSet(wordDict.begin(), wordDict.end());
+        vector<bool> dp(s.length() + 1, false);
+        dp[0] = true;
+        for (int i = 0; i < s.length(); i++) {
+            for (int j = 0; j <= i && !dp[i + 1]; j++) {
+                if (dp[j] && wordSet.find(s.substr(j, i - j + 1)) != wordSet.end()) {
+                    dp[i + 1] = true;
+                }
+            }
+        }
+        return dp[s.length()];
+    }
+};
