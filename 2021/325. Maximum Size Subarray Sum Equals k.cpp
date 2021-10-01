@@ -16,3 +16,21 @@ public:
         return maxLen;
     }
 };
+
+class Solution {
+public:
+    int maxSubArrayLen(vector<int>& nums, int k) {
+        unordered_map<int, int> sumMap = {{0, -1}};
+        int maxLen = 0, sum = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            sum += nums[i];            
+            if (sumMap.find(sum - k) != sumMap.end()) {
+                maxLen = max(maxLen, i - sumMap[sum - k]);
+            }
+            if (sumMap.find(sum) == sumMap.end()) {
+                sumMap[sum] = i;
+            }
+        }
+        return maxLen;
+    }
+};

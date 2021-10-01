@@ -34,3 +34,17 @@ public:
         return dp[s];
     }
 };
+
+class Solution {
+public:
+    int findTargetSumWays(vector<int>& nums, int target) {
+        vector<vector<int>> dp(1001, vector<int>(6001, 0));
+        dp[0][3000] = 1;
+        for (int i = 1; i <= nums.size(); i++) {
+            for (int j = target - 1000; j <= target + 1000; j++) {                
+                dp[i][j + 3000] = dp[i - 1][j - nums[i - 1] + 3000] + dp[i - 1][j + nums[i - 1] + 3000];
+            }
+        }
+        return dp[nums.size()][target + 3000];
+    }
+};
