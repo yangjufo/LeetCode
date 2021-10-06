@@ -42,3 +42,29 @@ public:
         
     }
 };
+
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int> res;
+        int i = 0;
+        while (i < nums.size()) {        
+            if (nums[i] == -(i + 1)) {
+                i++;
+                continue;
+            }
+            int index = nums[i] - 1; 
+            if (nums[index] == -(nums[i])) {
+                res.push_back(nums[i]);
+                nums[i] = 0;                
+            } else {
+                swap(nums[index], nums[i]);
+                nums[index] = -nums[index];                
+            }           
+            if (nums[i] == 0) {
+                i++;
+            }
+        }
+        return res;
+    }
+};
