@@ -59,3 +59,30 @@ public:
         return ans.substr(index + 2);
     }
 };
+
+
+class Solution {
+public:
+    string reverseWords(string s) {
+        reverse(s.begin(), s.end());
+        int start = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] == ' ') {                
+                reverse(s.begin() + start, s.begin() + i);
+                start = i + 1;
+            }
+        }            
+        reverse(s.begin() + start, s.end());
+        int index = 0;
+        for (int i = 0; i < s.length(); i++) {
+            if (s[i] != ' ' || (index != 0 && s[index - 1] != ' ')) {
+                s[index] = s[i];
+                index++;
+            }            
+        }        
+        if (index > 0 && s[index - 1] == ' ') {
+            index--;
+        }
+        return s.substr(0, index);
+    }
+};
