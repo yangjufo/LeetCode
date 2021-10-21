@@ -99,3 +99,57 @@ public:
  * bool param_2 = obj->remove(val);
  * int param_3 = obj->getRandom();
  */
+
+ class RandomizedSet {
+public:
+    int size;
+    vector<int> nums;
+    unordered_map<int, int> indexes;
+    RandomizedSet() {
+        size = 0;
+    }
+    
+    bool insert(int val) {
+        if (indexes.find(val) != indexes.end()) {
+            return false;
+        }
+        if (size >= nums.size()) {
+            nums.push_back(val);
+        } else {
+            nums[size] = val;
+        }        
+        indexes[val] = size;        
+        size++;
+        return true;
+    }
+    
+    bool remove(int val) {
+        if (indexes.find(val) == indexes.end()) {
+            return false;
+        }        
+        swap(nums[indexes[val]], nums[size - 1]);
+        indexes[nums[indexes[val]]] = indexes[val];
+        indexes.erase(val);
+        size--;
+        return true;
+    }
+    
+    int getRandom() {
+        return nums[rand() % size];
+    }
+    
+    void print() {
+        for (int i = 0; i < size; i++) {
+            cout << nums[i] << " ";
+        }
+        cout << endl;
+    }        
+};
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * RandomizedSet* obj = new RandomizedSet();
+ * bool param_1 = obj->insert(val);
+ * bool param_2 = obj->remove(val);
+ * int param_3 = obj->getRandom();
+ */
