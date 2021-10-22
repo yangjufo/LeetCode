@@ -46,3 +46,24 @@ public:
         return res;
     }
 };
+
+
+class Solution {
+public:
+    string frequencySort(string s) {
+        unordered_map<char, int> count;
+        for (char c : s) {
+            count[c]++;
+        }
+        vector<pair<int, int>> countPair;
+        for (auto iter : count) {
+            countPair.push_back({iter.second, iter.first});
+        }
+        sort(countPair.begin(), countPair.end());
+        string res;        
+        for (int i = (int)countPair.size() - 1; i >= 0; i--) {            
+            res += string(countPair[i].first, countPair[i].second);
+        }
+        return res;
+    }
+};
