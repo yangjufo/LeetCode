@@ -74,3 +74,79 @@ public:
  * int param_1 = obj->get(key);
  * obj->put(key,value);
  */
+
+ struct LNode
+{
+    int key;
+    int val;
+    LNode* prev, *next;
+    LNode(int _key, int _val) : key(_key), val(_val), prev(NULL), next(NULL) {}
+};
+
+class LRUCache {
+public:
+    unordered_map<int, LNode*> nodes;    
+    int capacity, count;
+    LNode *head, *tail;
+    LRUCache(int capacity) {
+        head = new LNode(0, 0);
+        tail = new LNode(0, 0);
+        head->next = tail;
+        tail->prev = head;
+        this->capacity = capacity;
+        count = 0;
+    }
+    
+    int get(int key) {
+        if (nodes.find(key) == nodes.end()) {
+            return -1;
+        }
+        // delete the node
+        LNode* node = nodes[key];
+        node->prev->next = node->next;
+        node->next->prev = node->prev;                
+        
+        // insert in the front
+        insert(node);
+        return node->val;
+    }
+    
+    void put(int key, int value) {
+        if (nodes.find(key) == nodes.end()) {
+            // insert in the front
+            LNode* newNode = new LNode(key, value);
+            insert(newNode);        
+            count++;
+            nodes[key] = newNode;        
+
+            if (count > capacity) {
+                remove();
+            }   
+        } else {
+            nodes[key]->val = value;
+            get(key);
+        }        
+    }
+    
+    void insert(LNode* node) {
+        node->next = head->next;
+        head->next->prev = node;
+        node->prev = head;
+        head->next = node;
+    }
+    
+    void remove() {
+        LNode* toDelete = tail->prev;
+        toDelete->prev->next = tail;
+        tail->prev = toDelete->prev;
+        nodes.erase(toDelete->key);
+        delete toDelete;
+    }
+};
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache* obj = new LRUCache(capacity);
+ * int param_1 = obj->get(key);
+ * obj->put(key,value);
+ */

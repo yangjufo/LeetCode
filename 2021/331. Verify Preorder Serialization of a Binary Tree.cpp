@@ -43,3 +43,36 @@ public:
         return traverse(preorder, index) && traverse(preorder, index);
     }
 };
+
+class Solution {
+public:
+    bool isValidSerialization(string preorder) {
+        vector<int> nodes;
+        int i = 0;
+        while (i < preorder.length()) {        
+            if (i != 0 && nodes.empty()) {
+                return false;
+            }
+            if (preorder[i] == '#') {
+                if (nodes.empty()) {
+                    return i + 1 == preorder.length();
+                }
+                do {
+                    nodes.back()++;
+                    if (nodes.back() == 2) {
+                        nodes.pop_back();
+                    } else {
+                        break;
+                    }
+                } while (!nodes.empty());                              
+            } else {
+                nodes.push_back(0);
+            }             
+            while (i < preorder.length() && preorder[i] != ',') {
+                i++;
+            }                        
+            i++;
+        }
+        return nodes.empty();
+    }
+};

@@ -43,3 +43,25 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<int> maxSlidingWindow(vector<int>& nums, int k) {
+        deque<pair<int, int>> dq;
+        vector<int> res;
+        for (int i = 0; i < nums.size(); i++) {
+            while (!dq.empty() && dq.back().second <= nums[i]) {
+                dq.pop_back();
+            }
+            while (!dq.empty() && dq.front().first + k <= i) {
+                dq.pop_front();
+            }            
+            dq.push_back({i, nums[i]});
+            if (i + 1 < k) {
+                continue;
+            }
+            res.push_back(dq.front().second);
+        }
+        return res;
+    }
+};

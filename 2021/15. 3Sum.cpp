@@ -68,3 +68,48 @@ public:
         return res;
     }
 };
+
+class Solution {
+public:
+    vector<vector<int>> threeSum(vector<int>& nums) {
+        sort(nums.begin(), nums.end());
+        // [-4, -1, -1, 0, 1, 2]
+        vector<vector<int>> res;
+        for (int i = 0; i < nums.size(); i++) {            
+            if (i != 0 && nums[i] == nums[i - 1]) { //[1,1,1,2,3]
+                continue;
+            }
+            vector<vector<int>> twos = twoSum(nums, i + 1, -nums[i]);
+            for (vector<int>& t : twos) {
+                t.push_back(nums[i]);
+                res.push_back(t);
+            }
+        }
+        return res;
+    }
+    
+    vector<vector<int>> twoSum(vector<int>& nums, int start, int target) {
+        vector<vector<int>> res;
+        int left = start, right = (int)nums.size() - 1;
+        while (left < right) {                                    
+            if (nums[left] + nums[right] == target) {
+                res.push_back({nums[left], nums[right]});
+                while (left < right && nums[left] == nums[left + 1]) {
+                    left++;
+                }
+                while (left < right && nums[right] == nums[right - 1]) {
+                    right--;
+                }  
+                left++;
+                right--;
+            } else if (nums[left] + nums[right] < target) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+        return res;
+    }
+    
+    //[1,2,3,4,5,6,7]
+};
