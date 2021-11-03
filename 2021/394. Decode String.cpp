@@ -34,3 +34,40 @@ public:
         return ans;
     }
 };
+
+class Solution {
+public:
+    string decodeString(string s) {
+        int index = 0;
+        return dfs(s, index);
+    }
+    
+    string dfs(string& s, int& index) {
+        string res;
+        while (index < s.length()) {
+            int start = index;
+            while (index < s.length() && (s[index] >= '0' && s[index] <= '9')) {
+                index++;
+            }                                
+            int num = index > start ? stoi(s.substr(start, index - start)) : 1;
+            string sub;
+            if (index < s.length() && s[index] == '[') {
+                index++;
+                sub = dfs(s, index);
+            } else {
+                while (index < s.length() && s[index] >= 'a' && s[index] <= 'z') {
+                    sub += s[index];
+                    index++;
+                }
+            }
+            for (int i = 0; i < num; i++) {
+                res += sub;
+            }
+            if (index < s.length() && s[index] == ']') {
+                index++;
+                break;
+            }
+        }        
+        return res;
+    }
+};

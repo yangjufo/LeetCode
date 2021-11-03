@@ -32,3 +32,33 @@ public:
  * obj->set(key,value,timestamp);
  * string param_2 = obj->get(key,timestamp);
  */
+
+
+ class TimeMap {
+public:
+    unordered_map<string, map<int, string>> store; //{key: {timestamp : value}}
+    TimeMap() {        
+    }
+    
+    void set(string key, string value, int timestamp) {
+        store[key][timestamp] = value;
+    }
+    
+    string get(string key, int timestamp) {
+        if (store.find(key) == store.end() || timestamp < (store[key].begin())->first) {
+            return "";
+        }
+        auto iter = store[key].lower_bound(timestamp);        
+        if (iter == store[key].end() || timestamp < iter->first) {
+            return prev(iter)->second;
+        }                
+        return iter->second; // timestamp >= iter->first
+    }
+};
+
+/**
+ * Your TimeMap object will be instantiated and called as such:
+ * TimeMap* obj = new TimeMap();
+ * obj->set(key,value,timestamp);
+ * string param_2 = obj->get(key,timestamp);
+ */
