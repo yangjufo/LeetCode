@@ -9,7 +9,7 @@ public:
         curr = prev;
         for (int i = 1; i < m; i++) {
             long long prevMax = INT_MIN;
-            for (int j = 0; j < n; j++) {                
+            for (int j = 0; j < n; j++) {
                 prevMax = max(prevMax, prev[j] + j);
                 curr[j] = prevMax + points[i][j] - j;
             }
@@ -20,7 +20,7 @@ public:
             }
             swap(curr, prev);
         }
-        
+
         return *max_element(prev.begin(), prev.end());
     }
 };
@@ -43,12 +43,41 @@ public:
             for (int j = (int)points[0].size() - 1; j >= 0; j--) {
                 postMax = max(postMax, prev[j] - j);
                 curr[j] = max(curr[j], postMax + j + points[i][j]);
-            }            
-            prev = curr;            
+            }
+            prev = curr;
         }
         long long res = 0;
         for (int j = 0; j < points[0].size(); j++) {
             res = max(res, curr[j]);
+        }
+        return res;
+    }
+};
+
+class Solution {
+public:
+    long long maxPoints(vector<vector<int>>& points) {
+        vector<long long> curr;
+        for (int p : points[0]) {
+            curr.push_back(p);
+        }
+        vector<long long> prev = curr;
+        for (int i = 1; i < points.size(); i++) {
+            long long preMax = INT_MIN;
+            for (int j = 0; j < points[0].size(); j++) {
+                preMax = max(preMax, prev[j] + j);
+                curr[j] = points[i][j] + preMax - j; // curr cell + max(prev cell + prev index) - curr index
+            }
+            long long postMax = INT_MIN;
+            for (int j = (int)points[0].size() - 1; j >= 0; j--) {
+                postMax = max(postMax, prev[j] - j);
+                curr[j] = max(curr[j], points[i][j] + postMax + j);
+            }
+            swap(prev, curr);
+        }
+        long long res = 0;
+        for (long long c : prev) {
+            res = max(c, res);
         }
         return res;
     }

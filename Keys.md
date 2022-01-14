@@ -24,5 +24,5 @@
 24. Set `right = nums.size()` to avoid final `left` checking when binary search, e.g., https://leetcode.com/problems/search-insert-position/
 25. Try thinking reversely like `maxSum = total - minSum`, e.g., https://leetcode.com/problems/maximum-sum-circular-subarray/
 26. Be careful about the corner case that the new value is the same as the old value, e.g., https://leetcode.com/problems/flood-fill/
-27. Use negativev value to mark cells in a board, e.g., https://leetcode.com/problems/candy-crush/
+27. Use negative value to mark cells in a board, e.g., https://leetcode.com/problems/candy-crush/
 28. Use `vector` instead of `unordered_set` whenever possible for faster runtime, e.g., https://leetcode.com/problems/minimum-operations-to-convert-number/
