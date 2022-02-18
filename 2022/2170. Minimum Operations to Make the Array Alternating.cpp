@@ -31,9 +31,6 @@ public:
         if (max11.first != max21.first) {
             return res - max11.second - max21.second;
         }
-        if (max11.second > max21.second) {
-            return res - max11.second - max22.second;
-        }
-        return res - max12.second - max21.second;
+        return min(res - max11.second - max22.second, res - max12.second - max21.second);
     }
 };
