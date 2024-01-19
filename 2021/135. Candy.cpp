@@ -40,7 +40,7 @@ public:
             if (i + 1 < ratings.size() && ratings[i] > ratings[i + 1] && candies[i] <= candies[i + 1]) {
                 candies[i] = candies[i + 1] + 1;
             }
-            total += candies[i];   
+            total += candies[i];
         }
         return total;
     }
@@ -54,15 +54,15 @@ public:
         for (int i = 1; i < ratings.size(); i++) {
             if (ratings[i] > ratings[i - 1]) {
                 candies[i] = max(candies[i], candies[i - 1] + 1);
-            }            
-        }  
+            }
+        }
         total = candies.back();
-        for (int i = (int)ratings.size() - 2; i >= 0; i--) {           
+        for (int i = (int)ratings.size() - 2; i >= 0; i--) {
             if (ratings[i] > ratings[i + 1]) {
                 candies[i] = max(candies[i], candies[i + 1] + 1);
             }
             total += candies[i];
-        }  
+        }
         return total;
     }
 };
