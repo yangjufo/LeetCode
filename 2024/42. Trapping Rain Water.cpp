@@ -24,3 +24,23 @@ public:
         return total;
     }
 };
+
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int leftIndex = 0, rightIndex = height.size() - 1, leftMost = 0,
+            rightMost = 0, total = 0;
+        while (leftIndex < rightIndex) {
+            if (height[leftIndex] < height[rightIndex]) {
+                leftMost = max(leftMost, height[leftIndex]);
+                total += leftMost - height[leftIndex];
+                leftIndex += 1;
+            } else {
+                rightMost = max(rightMost, height[rightIndex]);
+                total += rightMost - height[rightIndex];
+                rightIndex -= 1;
+            }
+        }
+        return total;
+    }
+};
