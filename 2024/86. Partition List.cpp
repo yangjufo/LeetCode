@@ -29,3 +29,35 @@ public:
         return left->next;
     }
 };
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* partition(ListNode* head, int x) {
+        ListNode *left = new ListNode(), *right = new ListNode();
+        ListNode *leftPrev = left, *rightPrev = right;
+        while (head != NULL) {
+            ListNode *next = head->next;
+            if (head->val < x) {
+                leftPrev->next = head;
+                leftPrev = head;
+            } else {
+                rightPrev->next = head;
+                rightPrev = head;
+            }
+            head = next;
+        }
+        leftPrev->next = right->next;
+        rightPrev->next = NULL;
+        return left->next;
+    }
+};
