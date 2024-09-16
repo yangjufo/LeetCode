@@ -26,3 +26,5 @@
 26. Be careful about the corner case that the new value is the same as the old value, e.g., https://leetcode.com/problems/flood-fill/
 27. Use negative value to mark cells in a board, e.g., https://leetcode.com/problems/candy-crush/
 28. Use `vector` instead of `unordered_set` whenever possible for faster runtime, e.g., https://leetcode.com/problems/minimum-operations-to-convert-number/
+29. Always check empty inputs, e.g., `root == NULL`.
+30. Mind integer overflow, e.g., `INT_MAX + INT_MAX`.
