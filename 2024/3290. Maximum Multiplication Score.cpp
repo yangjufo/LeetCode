@@ -1,7 +1,7 @@
 class Solution {
 public:
     long long maxScore(vector<int>& a, vector<int>& b) {
-        vector<vector<long long>> dp(b.size(), vector<long long>(4, INT_MIN));
+        vector<vector<long long>> dp(b.size(), vector<long long>(4, LONG_MIN));
         dp[0][0] = dp[1][1] = dp[2][2] = dp[3][3] = 0;
         for (int i = 0; i < b.size(); i++) {
             dp[i][0] = (long long)a[0] * b[i];

@@ -28,3 +28,4 @@
 28. Use `vector` instead of `unordered_set` whenever possible for faster runtime, e.g., https://leetcode.com/problems/minimum-operations-to-convert-number/
 29. Always check empty inputs, e.g., `root == NULL`.
 30. Mind integer overflow, e.g., `INT_MAX + INT_MAX`.
+31. https://leetcode.com/discuss/study-guide/786126/Python-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems
