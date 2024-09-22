@@ -47,3 +47,28 @@ public:
         return dp[n - 1];
     }
 };
+
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int>>& grid) {
+        if (grid[0][0] == 1) {
+            return 0;
+        }
+        vector<vector<int>> dp(grid.size(), vector<int>(grid[0].size()));
+        dp[0][0] = 1;
+        for (int i = 0; i < grid.size(); i++) {
+            for (int j = 0; j < grid[0].size(); j++) {
+                if (grid[i][j] == 1) {
+                    continue;
+                }
+                if (i > 0) {
+                    dp[i][j] += dp[i - 1][j];
+                }
+                if (j > 0) {
+                    dp[i][j] += dp[i][j - 1];
+                }
+            }
+        }
+        return dp[grid.size() - 1][grid[0].size() - 1];
+    }
+};

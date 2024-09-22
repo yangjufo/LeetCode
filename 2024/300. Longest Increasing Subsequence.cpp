@@ -61,3 +61,33 @@ public:
         return dp[left] < target ? left + 1 : left;
     }
 };
+
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> res;
+        for (int n : nums) {
+            binaryInsert(res, n);
+        }
+        return res.size();
+    }
+
+    void binaryInsert(vector<int>& res, int num) {
+        if (res.empty() || num > res.back()) {
+            res.push_back(num);
+            return;
+        }
+        int left = 0, right = res.size() - 1;
+        while (left < right) {
+            int mid = left + (right - left) / 2;
+            if (res[mid] > num) {
+                right = mid;
+            } else {
+                left = mid + 1;
+            }
+        }
+        if (res[left] > num && (left == 0 || res[left - 1] < num)) {
+            res[left] = num;
+        }
+    }
+};
