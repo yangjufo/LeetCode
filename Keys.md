@@ -29,3 +29,4 @@
 29. Always check empty inputs, e.g., `root == NULL`.
 30. Mind integer overflow, e.g., `INT_MAX + INT_MAX`.
 31. https://leetcode.com/discuss/study-guide/786126/Python-Powerful-Ultimate-Binary-Search-Template.-Solved-many-problems
+32. Think about bucket sort when the data range is fixed such as hours in a day, e.g., https://leetcode.com/problems/minimum-time-difference.
