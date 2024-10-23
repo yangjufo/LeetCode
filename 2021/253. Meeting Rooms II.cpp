@@ -6,7 +6,7 @@ public:
         for (vector<int>& interval : intervals) {
             if (minHeap.empty() || interval[0] < minHeap.top()) {
                 minHeap.push(interval[1]);
-            } else {           
+            } else {
                 minHeap.pop();
                 minHeap.push(interval[1]);
             }
