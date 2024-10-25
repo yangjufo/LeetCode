@@ -9,7 +9,7 @@
 9. BFS -> mark visited when adding neighbors. Otherwise, a cell can be pushed to the queue multiple times
 10. (i & 0x1) == 1
 11. Use `pair` or `array<int, 2>` whenever possible, it has better performance than `vector`
-12. Consider count the number of different characters for string problems, e.g., https://leetcode.com/problems/number-of-matching-subsequences/
+12. Consider counting the number of different characters for string problems, e.g., https://leetcode.com/problems/number-of-matching-subsequences/
 13. When reordering, consider count of digits, e.g., https://leetcode.com/problems/reordered-power-of-2/
 14. Group things, consider sliding window, e.g., https://leetcode.com/problems/minimum-swaps-to-group-all-1s-together/
 15. Check `iter != a.begin()` before using `prev(iter)`; Check `iter != a.end()` before `*iter`
@@ -21,7 +21,7 @@
 21. When using `long`, make sure it's everywhere, e.g., https://leetcode.com/problems/minimum-non-zero-product-of-the-array-elements/
 22. Try linked list instead of `std::map` for sorting, e.g., https://leetcode.com/problems/all-oone-data-structure/
 23. Use `(str + str).find(str, 1) != string::npos` to Check repeated substring, e.g., https://leetcode.com/problems/encode-string-with-shortest-length/
-24. Set `right = nums.size()` to avoid final `left` checking when binary search, e.g., https://leetcode.com/problems/search-insert-position/
+24. ~Set `right = nums.size()` to avoid final `left` checking when binary search, e.g., https://leetcode.com/problems/search-insert-position/~
 25. Try thinking reversely like `maxSum = total - minSum`, e.g., https://leetcode.com/problems/maximum-sum-circular-subarray/
 26. Be careful about the corner case that the new value is the same as the old value, e.g., https://leetcode.com/problems/flood-fill/
 27. Use negative value to mark cells in a board, e.g., https://leetcode.com/problems/candy-crush/
